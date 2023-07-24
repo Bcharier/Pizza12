@@ -1,0 +1,22 @@
+PROJET 2023-07-24 au 
+
+Développer en Spring Boot et avec une base de donnée SQL
+
+Une application Web d'une pizzeria permettant a des personnes de posséder un compte
+
+Compte client
+Compte employé
+
+L'application permet aux employés et aux clients de consulter le carte des pizzas
+Les clients peuvent soumettre des tickets pour donner des suggestion ou remonter des problèmes
+L'application permet aux clients de passer des commandes en ligne
+
+Le cuistot et le livreur peuvent voir le détail des commandes
+
+Le technicien peut gérer les remarques
+
+BONUS :
+Pouvoir gérer le cataogue des pizzas par les employés
+Gérer la carte de fidélité
+Permettre de générer des codes de réduction
+Gérer la localisation

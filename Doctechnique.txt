@@ -1,0 +1,16 @@
+Pizzas
+	idPizza
+	nomPizza
+	base
+
+Ingredients
+	idIngredient
+	nomIngredient
+	allergene
+	vegan
+
+
+PENSER À :
+Modèle de données/Schéma relationnel
+Diagramme de classes
+/!\ Document d'architecture /!\
