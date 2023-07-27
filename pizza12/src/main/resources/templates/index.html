@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="../static/style.css">
-</head>
-<body>
-<h1>Hello Pizza</h1>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Accueil</title>
+		<link rel="stylesheet" href="/styles.css" />
+	</head>
+	<body>
+		<header th:replace="/fragments :: header"></header>
+		<div class="main-container">
+			<h1>Hello Pizza</h1>
 
-<button class="button">Bouton</button>
-
-</br>
-
-<a href="/listePizza">listePizza</a>
-<a href="/designSystem">designSystem</a>
-
-</body>
+			<a href="/login" class="button">Page de Connexion</a>
+			<a href="/listePizza" class="button">Liste des commandes</a>
+			<a href="/designSystem" class="button button-design"
+				>designSystem</a
+			>
+		</div>
+	</body>
 </html>
