@@ -3,16 +3,16 @@ package fr.eni.pizza12.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductTypeProperty {
+public class ProductTypePropertyEntity {
 
     private int productTypePropertyId;
     private String productTypePropertyName;
-    private List<ProductTypePropertyValue> productTypePropertyValueList;
+    private List<ProductTypePropertyValueEntity> productTypePropertyValueList;
 
-    public ProductTypeProperty() {
+    public ProductTypePropertyEntity() {
     }
 
-    public ProductTypeProperty(int productTypePropertyId, String productTypePropertyName) {
+    public ProductTypePropertyEntity(int productTypePropertyId, String productTypePropertyName) {
         this.productTypePropertyId = productTypePropertyId;
         this.productTypePropertyName = productTypePropertyName;
         this.productTypePropertyValueList = new ArrayList<>();
@@ -34,11 +34,11 @@ public class ProductTypeProperty {
         this.productTypePropertyName = productTypePropertyName;
     }
 
-    public List<ProductTypePropertyValue> getProductTypePropertyValueList() {
+    public List<ProductTypePropertyValueEntity> getProductTypePropertyValueList() {
         return this.productTypePropertyValueList;
     }
 
-    public void setProductTypePropertyValueList(List<ProductTypePropertyValue> productTypePropertyValueList) {
+    public void setProductTypePropertyValueList(List<ProductTypePropertyValueEntity> productTypePropertyValueList) {
         this.productTypePropertyValueList = productTypePropertyValueList;
     }
 

@@ -10,13 +10,13 @@ public class ProductEntity {
     private int productPrice;
     private boolean productActive;
     private CategoryEntity category;
-    private ProductType productType;
+    private ProductTypeEntity productType;
 
     public ProductEntity() {
     }
 
     public ProductEntity(int productId, String productName, int productPrice, boolean productActive,
-            CategoryEntity category, ProductType productType) {
+            CategoryEntity category, ProductTypeEntity productType) {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -75,11 +75,11 @@ public class ProductEntity {
         this.category = category;
     }
 
-    public ProductType getProductType() {
+    public ProductTypeEntity getProductType() {
         return this.productType;
     }
 
-    public void setProductType(ProductType productType) {
+    public void setProductType(ProductTypeEntity productType) {
         this.productType = productType;
     }
 

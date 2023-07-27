@@ -1,14 +1,14 @@
 package fr.eni.pizza12.bo;
 
-public class ProductTypePropertyValue {
+public class ProductTypePropertyValueEntity {
 
     private int productTypePropertyValueId;
     private String productTypePropertyValueName;
 
-    public ProductTypePropertyValue() {
+    public ProductTypePropertyValueEntity() {
     }
 
-    public ProductTypePropertyValue(int productTypePropertyValueId, String productTypePropertyValueName) {
+    public ProductTypePropertyValueEntity(int productTypePropertyValueId, String productTypePropertyValueName) {
         this.productTypePropertyValueId = productTypePropertyValueId;
         this.productTypePropertyValueName = productTypePropertyValueName;
     }
