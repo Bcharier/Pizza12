@@ -1,10 +1,10 @@
-package fr.eni.pizza12.bll;
+package fr.eni.pizza12.dal;
 
 import java.util.List;
 
 import fr.eni.pizza12.bo.AccountEntity;
 
-public interface AccountService {
+public interface AccountRepository {
 
     public List<AccountEntity> getAllAccounts();
 

@@ -29,5 +29,4 @@ public interface ProductService {
     public List<ProductEntity> getAllProductsByType(ProductTypeEntity productTypeEntity);
 
     public List<ProductEntity> getAllProductsByType(int productTypeId);
-
 }

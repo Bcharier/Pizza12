@@ -5,16 +5,16 @@ import java.time.LocalDate;
 public class EmployeeEntity extends AccountEntity {
 
     private LocalDate hiringDate;
-    private String function;
+    private String occupation;
 
     public EmployeeEntity() {
         super();
     }
 
-    public EmployeeEntity(LocalDate hiringDate, String function) {
+    public EmployeeEntity(LocalDate hiringDate, String occupation) {
         super();
         this.hiringDate = hiringDate;
-        this.function = function;
+        this.occupation = occupation;
     }
 
     public LocalDate getHiringDate() {
@@ -25,19 +25,19 @@ public class EmployeeEntity extends AccountEntity {
         this.hiringDate = hiringDate;
     }
 
-    public String getFunction() {
-        return this.function;
+    public String getoccupation() {
+        return this.occupation;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setoccupation(String occupation) {
+        this.occupation = occupation;
     }
 
     @Override
     public String toString() {
         return "{" +
                 " hiringDate='" + getHiringDate() + "'" +
-                ", function='" + getFunction() + "'" +
+                ", occupation='" + getoccupation() + "'" +
                 "}";
     }
 
