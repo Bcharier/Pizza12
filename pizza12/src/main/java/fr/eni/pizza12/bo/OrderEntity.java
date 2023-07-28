@@ -8,24 +8,17 @@ public class OrderEntity {
     private int tableNumber;
     private LocalTime deliveryTime;
     private OrderStates orderState;
-    private AccountEntity accountEntity;
-
-    enum OrderStates {
-        EN_ATTENTE,
-        PAYEE,
-        LIVREE
-    }
+    private int accountId;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStates orderState,
-            AccountEntity accountEntity) {
+    public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStates orderState, int accountId) {
         this.orderId = orderId;
         this.tableNumber = tableNumber;
         this.deliveryTime = deliveryTime;
         this.orderState = orderState;
-        this.accountEntity = accountEntity;
+        this.accountId = accountId;
     }
 
     public int getOrderId() {
@@ -60,15 +53,11 @@ public class OrderEntity {
         this.orderState = orderState;
     }
 
-    public AccountEntity getAccountEntity() {
-        return this.accountEntity;
+    public int getAccountId() {
+        return this.accountId;
     }
 
-    public void setAccountEntity(AccountEntity accountEntity) {
-        this.accountEntity = accountEntity;
-    }
-
-    public OrderStates[] getAllOrderStates() {
-        return OrderStates.values();
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 }
