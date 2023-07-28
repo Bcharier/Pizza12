@@ -36,4 +36,28 @@ public class AccountServiceImpl implements AccountService {
         throw new UnsupportedOperationException("Unimplemented method 'getAccountByName'");
     }
 
+    @Override
+    public void deleteAccount(AccountEntity accountEntity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteAccount'");
+    }
+
+    @Override
+    public void deleteAccountById(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteAccountById'");
+    }
+
+    @Override
+    public AccountEntity updateAccount(AccountEntity accountEntity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateAccount'");
+    }
+
+    @Override
+    public void addAccount(AccountEntity accountEntity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addAccount'");
+    }
+
 }

@@ -15,4 +15,12 @@ public interface AccountService {
     public List<AccountEntity> getAccountByLastName(String accountLastName);
 
     public List<AccountEntity> getAccountByName(String accountName);
+
+    public void deleteAccount(AccountEntity accountEntity);
+
+    public void deleteAccountById(int id);
+
+    public AccountEntity updateAccount(AccountEntity accountEntity);
+
+    public void addAccount(AccountEntity accountEntity);
 }

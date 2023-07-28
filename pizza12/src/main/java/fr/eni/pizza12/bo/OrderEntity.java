@@ -4,6 +4,7 @@ import java.time.LocalTime;
 
 public class OrderEntity {
 
+    private int orderId;
     private int tableNumber;
     private LocalTime deliveryTime;
     private OrderStates orderState;
@@ -18,11 +19,21 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public OrderEntity(int tableNumber, LocalTime deliveryTime, OrderStates orderState, AccountEntity accountEntity) {
+    public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStates orderState,
+            AccountEntity accountEntity) {
+        this.orderId = orderId;
         this.tableNumber = tableNumber;
         this.deliveryTime = deliveryTime;
         this.orderState = orderState;
         this.accountEntity = accountEntity;
+    }
+
+    public int getOrderId() {
+        return this.orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getTableNumber() {
