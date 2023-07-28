@@ -39,8 +39,13 @@ public class FormController {
   @GetMapping("/getPizzas")
   public String getAllPizzas(Model model) {
     // This returns a JSON or XML with the users
+    // Récupérer les catégories
+    // Boucler categorie.size()
+      // Pour chaque numéro, récupérer la liste des produits
+      // Stocker la liste dans une List de List
+    // Fin boucle
     model.addAttribute("pizzas", pizzaDAO.getAllPizzas());
-    model.addAttribute("pizza", new PizzaEntity());
+    // model.addAttribute("pizza", new PizzaEntity());
     return "result";
   }
 
