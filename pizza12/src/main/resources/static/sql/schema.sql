@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Accounts (
   accountDateOfBirth DATE,
   accountMail VARCHAR(128),
   accountPhone VARCHAR(15),
-  accountCreationDate DATE,
+  accountCreationDate DATE
 );
 
 CREATE TABLE IF NOT EXISTS Employees (
