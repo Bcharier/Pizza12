@@ -4,14 +4,16 @@ USE Pizza12;
 
 CREATE TABLE IF NOT EXISTS Categories(
   categoryId SMALLINT PRIMARY KEY,
-  categoryName VARCHAR(128)
+  categoryName VARCHAR(128),
+  categoryOrder SMALLINT
 );
 
 CREATE TABLE IF NOT EXISTS Ingredients (
   ingredientId INT PRIMARY KEY,
   ingredientName VARCHAR(50) NOT NULL,
   isAllergenic BOOLEAN,
-  isVegan BOOLEAN
+  isVegan BOOLEAN,
+  stock INT
 );
 
 CREATE TABLE IF NOT EXISTS ProductTypes (
@@ -24,32 +26,38 @@ CREATE TABLE IF NOT EXISTS ProductTypeProperties (
   productTypeId INT,
   productTypePropertyName VARCHAR(50) NOT NULL,
   CONSTRAINT PK_ProductTypeProperties PRIMARY KEY (productTypePropertyId, productTypeId),
-  CONSTRAINT FK_ProductTypeProperties_ProductType FOREIGN KEY (productTypeId) REFERENCES ProductTypes(productTypeId)
+  CONSTRAINT FK_ProductTypeProperties_ProductType FOREIGN KEY (productTypeId) REFERENCES ProductTypes(productTypeId) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ProductTypePropertiesValuesCatalog (
   productTypePropertiesValueId SMALLINT,
-  productTypePropertyId INT,
   productTypeId INT,
+  productTypePropertyId INT,
   productTypePropertiesValueName VARCHAR(50) NOT NULL,
-  isAvailableEAtIn BOOLEAN,
+  isAvailableForEatIn BOOLEAN,
   isAvailableForTakeout BOOLEAN,
-  CONSTRAINT PK_ProductTypePropertiesValues PRIMARY KEY (productTypeId, productTypePropertyId, ProductTypePropertiesValueId)
+  CONSTRAINT PK_ProductTypePropertiesValues PRIMARY KEY (productTypeId, productTypePropertyId, ProductTypePropertiesValueId),
+  CONSTRAINT FK_ProductTypePropertiesValuesCatalog_ProductType FOREIGN KEY (productTypeId) REFERENCES ProductTypes(productTypeId) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT FK_ProductTypePropertiesValuesCatalog_ProductTypeProperties FOREIGN KEY (productTypePropertyId) REFERENCES ProductTypeProperties(productTypePropertyId) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Products (
-  productID INT PRIMARY KEY,
+  productId INT PRIMARY KEY,
   productName VARCHAR(128) NOT NULL,
   productPrice DECIMAL(6,2),
   isActive BOOLEAN,
   categoryId SMALLINT,
-  CONSTRAINT FK_Products_Categories FOREIGN KEY (categoryId) REFERENCES Categories(categoryId) ON UPDATE CASCADE ON DELETE SET NULL
+  productTypeId INT,
+  CONSTRAINT FK_Products_Categories FOREIGN KEY (categoryId) REFERENCES Categories(categoryId) ON UPDATE CASCADE ON DELETE SET NULL,
+  CONSTRAINT FK_Products_ProductTypes FOREIGN KEY (productTypeId) REFERENCES ProductTypes(productTypeId) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
-CREATE TABLE IF NOT EXISTS Composition (
+CREATE TABLE IF NOT EXISTS Compositions (
   productId INT,
   ingredientId INT,
-  CONSTRAINT PK_Composition PRIMARY KEY (productId, ingredientId)
+  CONSTRAINT PK_Compositions PRIMARY KEY (productId, ingredientId),
+  CONSTRAINT FK_Compositions_Products FOREIGN KEY (productId) REFERENCES Products(productId) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT FK_Compositions_Ingredients FOREIGN KEY (ingredientId) REFERENCES Ingredients(ingredientId) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Accounts (
@@ -58,11 +66,13 @@ CREATE TABLE IF NOT EXISTS Accounts (
   accountFirstName VARCHAR(75) NOT NULL,
   accountDateOfBirth DATE,
   accountMail VARCHAR(128),
-  accountPhone VARCHAR(15)
+  accountPhone VARCHAR(15),
+  accountCreationDate DATE,
 );
 
 CREATE TABLE IF NOT EXISTS Employees (
-  employeeId INT PRIMARY KEY,
+  employeeId INT UNIQUE,
+  employeeHiringDate DATE,
   employeeOccupation VARCHAR(50),
   CONSTRAINT FK_employeeId_accountId FOREIGN KEY (employeeId) REFERENCES Accounts(accountId) ON UPDATE CASCADE ON DELETE SET NULL
 );
@@ -70,10 +80,12 @@ CREATE TABLE IF NOT EXISTS Employees (
 CREATE TABLE IF NOT EXISTS Orders (
   orderId BIGINT,
   orderTableNum SMALLINT DEFAULT -1,
+  orderAccountId INT,
   orderScheduledDeliveryTime TIME,
   orderStatus VARCHAR(25),
   orderBillTotal DECIMAL(8,2),
-  CONSTRAINT PK_Orders PRIMARY KEY (orderId)
+  CONSTRAINT PK_Orders PRIMARY KEY (orderId),
+  CONSTRAINT FK_Orders_Accounts FOREIGN KEY (orderAccountId) REFERENCES Accounts(accountId) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS OrderItems (
@@ -82,6 +94,6 @@ CREATE TABLE IF NOT EXISTS OrderItems (
   orderItemQuantity SMALLINT,
   orderItemStatus VARCHAR(20),
   CONSTRAINT PK_OrderItems PRIMARY KEY (orderId, orderItemId),
-  CONSTRAINT FK_OrderItems_Orders_orderId FOREIGN KEY (orderId) REFERENCES Orders(orderId)
+  CONSTRAINT FK_OrderItems_Orders_orderId FOREIGN KEY (orderId) REFERENCES Orders(orderId) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
