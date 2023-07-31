@@ -2,24 +2,35 @@ package fr.eni.pizza12.bo;
 
 public class OrderItemEntity {
 
+    private int orderId;
+    private int orderItemId;
     private int orderItemQuantity;
-    private OrderPreparationState orderPreparationState;
-
-    enum OrderPreparationState {
-        ANNULEE,
-        COMMANDEE,
-        PREPAREE,
-        EN_COURS,
-        PRETE,
-        LIVREE
-    }
+    private OrderItemsStatus OrderItemsStatus;
 
     public OrderItemEntity() {
     }
 
-    public OrderItemEntity(int orderItemQuantity, OrderPreparationState orderPreparationState) {
+    public OrderItemEntity(int orderId, int orderItemId, int orderItemQuantity, OrderItemsStatus OrderItemsStatus) {
+        this.orderId = orderId;
+        this.orderItemId = orderItemId;
         this.orderItemQuantity = orderItemQuantity;
-        this.orderPreparationState = orderPreparationState;
+        this.OrderItemsStatus = OrderItemsStatus;
+    }
+
+    public int getOrderId() {
+        return this.orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getOrderItemId() {
+        return this.orderItemId;
+    }
+
+    public void setOrderItemId(int orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
     public int getOrderItemQuantity() {
@@ -30,12 +41,22 @@ public class OrderItemEntity {
         this.orderItemQuantity = orderItemQuantity;
     }
 
-    public OrderPreparationState getOrderPreparationState() {
-        return this.orderPreparationState;
+    public OrderItemsStatus getOrderItemsStatus() {
+        return this.OrderItemsStatus;
     }
 
-    public void setOrderPreparationState(OrderPreparationState orderPreparationState) {
-        this.orderPreparationState = orderPreparationState;
+    public void setOrderItemsStatus(OrderItemsStatus OrderItemsStatus) {
+        this.OrderItemsStatus = OrderItemsStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " orderId='" + getOrderId() + "'" +
+                ", orderItemId='" + getOrderItemId() + "'" +
+                ", orderItemQuantity='" + getOrderItemQuantity() + "'" +
+                ", OrderItemsStatus='" + getOrderItemsStatus() + "'" +
+                "}";
     }
 
 }

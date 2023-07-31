@@ -10,6 +10,8 @@ public interface ProductRepository {
 
     public List<ProductEntity> getAllProducts();
 
+    public List<ProductEntity> getAllProductsAndCategories();
+
     public List<ProductEntity> getAllActiveProducts();
 
     public ProductEntity getProductByName(String name);
