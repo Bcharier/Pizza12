@@ -26,7 +26,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 
   @Override
   public List<PizzaEntity> getAllPizzas() {
-    String sql = "SELECT * FROM Pizzas";
+    String sql = "SELECT * FROM Products";
 
     return jdbcTemplate.query(sql, new PizzaRowMapper());
   }

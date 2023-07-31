@@ -6,8 +6,8 @@ import fr.eni.pizza12.bo.CategoryEntity;
 
 public interface CategoryRepository {
 
-    public List<CategoryEntity> getAllCategories();
+  public List<CategoryEntity> getAllCategories();
 
-    public CategoryEntity getCategoryById(int id);
+  public CategoryEntity getCategoryById(int id);
 
 }

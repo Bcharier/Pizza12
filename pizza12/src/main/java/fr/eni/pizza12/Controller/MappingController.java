@@ -1,48 +1,81 @@
 package fr.eni.pizza12.controller;
 
+import fr.eni.pizza12.dal.ProductRepository;
+import fr.eni.pizza12.bo.ProductEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
 
 @Controller
 public class MappingController {
-    @GetMapping("/")
-    public String helloPizza12() {
-        return "index";
-    }
 
-    @GetMapping("/designSystem")
-    public String designSystem() {
-        return "designSystem";
-    }
+  private ProductRepository productRepository;
 
-    @GetMapping("/account")
-    public String openAccount() {
-        return "account";
-    }
+  public MappingController(ProductRepository productRepository) {
+    this.productRepository = productRepository;
+  }
 
-    @GetMapping("/cart")
-    public String openCart() {
-        return "cart";
-    }
+  @GetMapping("/")
+  public String helloPizza12(Model model) {
+    List<ProductEntity> menu = new ArrayList<>();
+    menu = productRepository.getAllProductsAndCategories();
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
+    model.addAttribute("products", menu);
+    return "index";
+  }
 
-    @PostMapping("/employeeRedirect")
-    public String serviceTools() {
-        return "serviceTools";
-    }
+  @GetMapping("/designSystem")
+  public String designSystem() {
+    return "designSystem";
+  }
 
-    @GetMapping("/listOrders")
-    public String listOrders() {
-        return "listOrders";
-    }
+  @GetMapping("/account")
+  public String openAccount() {
+    return "account";
+  }
 
-    @GetMapping("orderTool")
-    public String orderTool() {
-        return "orderTool";
-    }
+  @GetMapping("/cart")
+  public String openCart() {
+    return "cart";
+  }
+
+  @GetMapping("/login")
+  public String login() {
+    return "login";
+  }
+
+  @PostMapping("/employeeRedirect")
+  public String serviceTools() {
+    return "serviceTools";
+  }
+
+  @GetMapping("/listOrders")
+  public String listOrders() {
+    return "listOrders";
+  }
+
+  @GetMapping("orderTool")
+  public String orderTool() {
+    return "orderTool";
+  }
+
+  /*
+   * @GetMapping("/getPizzas")
+   * public String getAllPizzas(Model model) {
+   * // This returns a JSON or XML with the users
+   * // Récupérer les catégories
+   * // Boucler categorie.size()
+   * // Pour chaque numéro, récupérer la liste des produits
+   * // Stocker la liste dans une List de List
+   * // Fin boucle
+   * model.addAttribute("pizzas", pizzaDAO.getAllProductsAndCategories());
+   * // model.addAttribute("pizza", new PizzaEntity());
+   * return "result";
+   * }
+   */
 }
