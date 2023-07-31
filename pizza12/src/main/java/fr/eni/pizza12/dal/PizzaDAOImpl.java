@@ -19,7 +19,7 @@ public class PizzaDAOImpl implements PizzaDAO {
   private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Autowired
-  public PizzaDAOImpl(JdbcTemplate jdbcTemplate)  {
+  public PizzaDAOImpl(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
     this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
   }

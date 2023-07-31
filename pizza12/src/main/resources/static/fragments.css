@@ -1,0 +1,18 @@
+@import 'utility.css';
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+.right-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: auto;
+}
+
+.right-header > *:not(:last-child) {
+    padding-right: 2rem;
+}
