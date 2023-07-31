@@ -8,8 +8,8 @@ public interface OrderRepository {
 
     public List<OrderEntity> getAllOrders();
 
-    public void addOrder();
+    public void addOrder(OrderEntity orderEntity);
 
-    public void updateOrder();
+    public void updateOrder(OrderEntity orderEntity);
 
 }

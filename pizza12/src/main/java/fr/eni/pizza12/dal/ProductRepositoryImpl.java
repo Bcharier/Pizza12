@@ -20,7 +20,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
+    private static CategoryRepositoryImpl categoryRepositoryImpl;
     private static final String SQL_CATEGORY = "SELECT * FROM Products Where categoryId = ?";
     private static final String SQL_PROPERTY_TYPE = "SELECT * FROM Products Where productTypeId = ?";
 
@@ -28,15 +28,18 @@ public class ProductRepositoryImpl implements ProductRepository {
     public ProductRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+        categoryRepositoryImpl = new CategoryRepositoryImpl(jdbcTemplate);
     }
 
     private static class ProductRowMapper implements RowMapper<ProductEntity> {
+
         public ProductEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
             ProductEntity productEntity = new ProductEntity();
             productEntity.setProductId(rs.getInt("productId"));
             productEntity.setProductName(rs.getString("productName"));
             productEntity.setProductPrice(rs.getInt("productPrice"));
             productEntity.setProductActive(rs.getBoolean("isActive"));
+            productEntity.setCategory(categoryRepositoryImpl.getCategoryById(rs.getInt("categoryId")));
             return productEntity;
         }
     }
@@ -44,6 +47,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public List<ProductEntity> getAllProducts() {
         String sql = "SELECT * FROM Products";
+
+        return jdbcTemplate.query(sql, new ProductRowMapper());
+    }
+
+    public List<ProductEntity> getAllProductsAndCategories() {
+        String sql = "SELECT * FROM Products p INNER JOIN Categories c ON p.categoryId = c.categoryId ORDER BY c.categoryOrder";
 
         return jdbcTemplate.query(sql, new ProductRowMapper());
     }

@@ -4,13 +4,15 @@ public class CategoryEntity {
 
     private int categoryId;
     private String categoryName;
+    private int categoryOrder;
 
     public CategoryEntity() {
     }
 
-    public CategoryEntity(int categoryId, String categoryName) {
+    public CategoryEntity(int categoryId, String categoryName, int categoryOrder) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.categoryOrder = categoryOrder;
     }
 
     public int getCategoryId() {
@@ -29,6 +31,14 @@ public class CategoryEntity {
         this.categoryName = categoryName;
     }
 
+    public int getCategoryOrder() {
+        return this.categoryOrder;
+    }
+
+    public void setCategoryOrder(int categoryOrder) {
+        this.categoryOrder = categoryOrder;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -36,5 +46,4 @@ public class CategoryEntity {
                 ", categoryName='" + getCategoryName() + "'" +
                 "}";
     }
-
 }
