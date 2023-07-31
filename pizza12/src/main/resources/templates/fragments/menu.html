@@ -1,14 +1,12 @@
 <div th:fragment="menu">
   <span>MENU</span>
   <th:block th:each="product, iStat : ${products}">
-    <th:block data-th-if="${@MenuHelper.checkIfDisplayCategoryName(products, iStat)}">
-      <div data-th-text="${product.category.categoryName}">categoryName</div>
-      <th:block data-th-if="${iStat gt 0}">
-        </ul>
-      </th:block>
-      <ul>
+    <th:block th:if="${@menuHelper.checkIfDisplayCategoryName(products, iStat.index)}">
+        <th:block th:if="${iStat.index gt 0}" th:utext="'&lt;/ul&gt;'" /> 
+      <div th:class="'categoryName ' + ${product.category.categoryName}" data-th-text="${product.category.categoryName}">categoryName</div>
+      
     </th:block>
-    <li data-th-text="${product.productName}">productName</li>
+    <li class="productName" data-th-text="${product.productName}">productName</li>
   </ul>
   </th:block>
 </div>
