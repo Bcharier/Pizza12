@@ -1,9 +1,7 @@
 package fr.eni.pizza12.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.boot.web.server.MimeMappings.Mapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import fr.eni.pizza12.bo.OrderEntity;
 import fr.eni.pizza12.bo.OrderItemEntity;
-import fr.eni.pizza12.bo.ProductEntity;
+import fr.eni.pizza12.dal.OrderItemRepository;
 import fr.eni.pizza12.dal.OrderRepository;
-import fr.eni.pizza12.dal.ProductRepository;
 
 @Controller
 public class MappingController {
@@ -21,8 +18,9 @@ public class MappingController {
     private OrderRepository orderRepository;
     private OrderItemRepository orderItemRepository;
 
-    MappingController(OrderRepository orderRepository) {
+    MappingController(OrderRepository orderRepository, OrderItemRepository orderItemRepository) {
         this.orderRepository = orderRepository;
+        this.orderItemRepository = orderItemRepository;
     }
 
     @GetMapping("/")
@@ -60,10 +58,11 @@ public class MappingController {
         List<OrderEntity> listOrders;
         listOrders = orderRepository.getAllOrders();
 
-        List<OrderItemEntity> listOrderItems;
-        listOrderItems = order
+        List<OrderItemEntity> listOrderItem = null;
+        listOrderItem = orderItemRepository.getAllOrderItems();
 
         model.addAttribute("orders", listOrders);
+        model.addAttribute("items", listOrderItem);
 
         return "listOrders";
     }

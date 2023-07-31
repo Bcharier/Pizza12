@@ -14,7 +14,12 @@
 			<div class="list-orders-container">
 				<ul th:each="order : ${orders}">
 					<li
-						th:text="${order.tableNumber} + ' ' + ${order.orderState}"
+						th:text="${order.orderId} + ' ' + ${order.tableNumber} + ' ' + ${order.orderState}"
+					></li>
+				</ul>
+				<ul th:each="item : ${items}">
+					<li
+						th:text="${item.orderId} + ' ' + ${item.orderItemQuantity} + ' ' + ${item.orderItemsStatus}"
 					></li>
 				</ul>
 			</div>

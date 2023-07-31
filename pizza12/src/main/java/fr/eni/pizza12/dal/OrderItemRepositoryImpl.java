@@ -40,7 +40,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
 
     @Override
     public List<OrderItemEntity> getAllOrderItems() {
-        String sql = "SELECT * FROM orderItems";
+        String sql = "SELECT * FROM orderItems oI INNER JOIN orders o ON oI.orderId = o.orderId WHERE TIMEDIFF(o.orderScheduledDeliveryTime, NOW()) <= '12:00:00' ORDER BY o.orderId";
 
         return jdbcTemplate.query(sql, new OrderItemRowMapper());
     }
