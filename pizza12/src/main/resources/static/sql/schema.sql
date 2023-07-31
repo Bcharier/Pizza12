@@ -1,3 +1,4 @@
+DROP DATABASE Pizza12;
 CREATE DATABASE IF NOT EXISTS Pizza12;
 
 USE Pizza12;
@@ -81,7 +82,7 @@ CREATE TABLE IF NOT EXISTS Orders (
   orderId BIGINT,
   orderTableNum SMALLINT DEFAULT -1,
   orderAccountId INT,
-  orderScheduledDeliveryTime TIME,
+  orderScheduledDeliveryTime DATETIME,
   orderStatus VARCHAR(25),
   orderBillTotal DECIMAL(8,2),
   CONSTRAINT PK_Orders PRIMARY KEY (orderId),
