@@ -5,6 +5,13 @@
   <title>Title</title>
 </head>
 <body>
-
+  <div></div>
+  <ul th:each="product, iStat : ${products}">
+    <div data-th-if="${ currentCategory != null || currentCategory != product?.categoryName }">
+      <div th:with="currentCategory=${product?.categoryId}"></div>
+      <div data-th-text="${product?.category?.categoryName}">categoryName</div>
+    </div>
+    <li data-th-text="${product.productName}">productName</li>
+  </ul>
 </body>
 </html>
