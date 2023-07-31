@@ -7,10 +7,17 @@
 		<link rel="stylesheet" href="/styles.css" />
 	</head>
 	<body>
-		<header th:replace="~{/fragments :: header}"></header>
+		<header th:replace="~{/fragments/fragments :: header}"></header>
 
 		<div class="main-container">
 			<h1 class="main-title">Liste des commandes en cours</h1>
+			<div class="list-orders-container">
+				<ul th:each="order : ${orders}">
+					<li
+						th:text="${order.tableNumber} + ' ' + ${order.orderState}"
+					></li>
+				</ul>
+			</div>
 		</div>
 	</body>
 </html>
