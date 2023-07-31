@@ -1,12 +1,9 @@
 package fr.eni.pizza12.controller;
 
-<<<<<<< HEAD
-=======
 import fr.eni.pizza12.dal.ProductRepository;
 import fr.eni.pizza12.bo.ProductEntity;
 
 import java.util.ArrayList;
->>>>>>> main
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -22,7 +19,6 @@ import fr.eni.pizza12.dal.OrderRepository;
 
 @Controller
 public class MappingController {
-<<<<<<< HEAD
 
     private OrderRepository orderRepository;
     private OrderItemRepository orderItemRepository;
@@ -36,30 +32,27 @@ public class MappingController {
     public String helloPizza12() {
         return "index";
     }
-=======
->>>>>>> main
 
-  private ProductRepository productRepository;
+    private ProductRepository productRepository;
 
-  public MappingController(ProductRepository productRepository) {
-    this.productRepository = productRepository;
-  }
+    public MappingController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
-  @GetMapping("/")
-  public String helloPizza12(Model model) {
-    List<ProductEntity> menu = new ArrayList<>();
-    menu = productRepository.getAllProductsAndCategories();
+    @GetMapping("/")
+    public String helloPizza12(Model model) {
+        List<ProductEntity> menu = new ArrayList<>();
+        menu = productRepository.getAllProductsAndCategories();
 
-    model.addAttribute("products", menu);
-    return "index";
-  }
+        model.addAttribute("products", menu);
+        return "index";
+    }
 
-  @GetMapping("/designSystem")
-  public String designSystem() {
-    return "designSystem";
-  }
+    @GetMapping("/designSystem")
+    public String designSystem() {
+        return "designSystem";
+    }
 
-<<<<<<< HEAD
     @GetMapping("/listOrders")
     public String listOrders(Model model) {
         List<OrderEntity> listOrders;
@@ -79,50 +72,48 @@ public class MappingController {
         return "orderTool";
     }
 
-=======
-  @GetMapping("/account")
-  public String openAccount() {
-    return "account";
-  }
+    @GetMapping("/account")
+    public String openAccount() {
+        return "account";
+    }
 
-  @GetMapping("/cart")
-  public String openCart() {
-    return "cart";
-  }
+    @GetMapping("/cart")
+    public String openCart() {
+        return "cart";
+    }
 
-  @GetMapping("/login")
-  public String login() {
-    return "login";
-  }
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
-  @PostMapping("/employeeRedirect")
-  public String serviceTools() {
-    return "serviceTools";
-  }
+    @PostMapping("/employeeRedirect")
+    public String serviceTools() {
+        return "serviceTools";
+    }
 
-  @GetMapping("/listOrders")
-  public String listOrders() {
-    return "listOrders";
-  }
+    @GetMapping("/listOrders")
+    public String listOrders() {
+        return "listOrders";
+    }
 
-  @GetMapping("orderTool")
-  public String orderTool() {
-    return "orderTool";
-  }
+    @GetMapping("orderTool")
+    public String orderTool() {
+        return "orderTool";
+    }
 
-  /*
-   * @GetMapping("/getPizzas")
-   * public String getAllPizzas(Model model) {
-   * // This returns a JSON or XML with the users
-   * // Récupérer les catégories
-   * // Boucler categorie.size()
-   * // Pour chaque numéro, récupérer la liste des produits
-   * // Stocker la liste dans une List de List
-   * // Fin boucle
-   * model.addAttribute("pizzas", pizzaDAO.getAllProductsAndCategories());
-   * // model.addAttribute("pizza", new PizzaEntity());
-   * return "result";
-   * }
-   */
->>>>>>> main
+    /*
+     * @GetMapping("/getPizzas")
+     * public String getAllPizzas(Model model) {
+     * // This returns a JSON or XML with the users
+     * // Récupérer les catégories
+     * // Boucler categorie.size()
+     * // Pour chaque numéro, récupérer la liste des produits
+     * // Stocker la liste dans une List de List
+     * // Fin boucle
+     * model.addAttribute("pizzas", pizzaDAO.getAllProductsAndCategories());
+     * // model.addAttribute("pizza", new PizzaEntity());
+     * return "result";
+     * }
+     */
 }
