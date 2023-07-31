@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import fr.eni.pizza12.bo.AccountEntity;
 import fr.eni.pizza12.bo.EmployeeEntity;
 
+@Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -53,7 +54,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<EmployeeEntity> getEmployeeByoccupation(String occupation) {
+    public List<EmployeeEntity> getEmployeeByOccupation(String occupation) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getEmployeeByoccupation'");
     }

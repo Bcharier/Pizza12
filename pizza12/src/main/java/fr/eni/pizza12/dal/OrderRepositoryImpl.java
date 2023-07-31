@@ -14,9 +14,6 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
-
-import fr.eni.pizza12.bo.AccountEntity;
 import fr.eni.pizza12.bo.OrderEntity;
 import fr.eni.pizza12.bo.OrderStates;
 
@@ -62,7 +59,7 @@ public class OrderRepositoryImpl implements OrderRepository {
                 preparedStatement.setInt(2, orderEntity.getTableNumber());
                 preparedStatement.setInt(3, orderEntity.getAccountId());
                 preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
-                preparedStatement.setString(5, OrderStates.valueOf(orderEntity.getOrderState()));
+                preparedStatement.setString(5, orderEntity.getOrderState().name());
                 preparedStatement.setInt(6, 0);
             }
         });
@@ -78,7 +75,7 @@ public class OrderRepositoryImpl implements OrderRepository {
                 preparedStatement.setInt(2, orderEntity.getTableNumber());
                 preparedStatement.setInt(3, orderEntity.getAccountId());
                 preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
-                preparedStatement.setString(5, OrderStates.valueOf(orderEntity.getOrderState()));
+                preparedStatement.setString(5, orderEntity.getOrderState().name());
                 preparedStatement.setInt(6, 0);
             }
         });
