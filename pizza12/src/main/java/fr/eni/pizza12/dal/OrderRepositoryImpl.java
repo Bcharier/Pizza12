@@ -14,7 +14,6 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import fr.eni.pizza12.bo.AccountEntity;
 import fr.eni.pizza12.bo.OrderEntity;
 import fr.eni.pizza12.bo.OrderStates;
 

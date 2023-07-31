@@ -12,7 +12,7 @@ public interface EmployeeRepository {
 
   public List<EmployeeEntity> getEmployeeByName(String name);
 
-  public List<EmployeeEntity> getEmployeeByoccupation(String occupation);
+  public List<EmployeeEntity> getEmployeeByOccupation(String occupation);
 
   public void addEmployee(EmployeeEntity employeeEntity);
 
