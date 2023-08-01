@@ -11,6 +11,8 @@ public class ProductEntity {
     private boolean productActive;
     private CategoryEntity category;
     private ProductTypeEntity productType;
+    private int productQuantity;
+    private int productOrderId;
 
     public ProductEntity() {
     }
@@ -29,6 +31,21 @@ public class ProductEntity {
     public ProductEntity(int productId, String productName, int productPrice, boolean productActive,
             CategoryEntity category) {
         this(productId, productName, productPrice, productActive, category, null);
+    }
+
+    public ProductEntity(int productId, String productName, int productQuantity, int productPrice,
+            boolean productActive,
+            CategoryEntity category) {
+        this(productId, productName, productPrice, productActive, category, null);
+        this.productQuantity = productQuantity;
+    }
+
+    public ProductEntity(int productId, String productName, int productQuantity, int productPrice,
+            boolean productActive,
+            CategoryEntity category, int productOrderId) {
+        this(productId, productName, productPrice, productActive, category, null);
+        this.productQuantity = productQuantity;
+        this.productOrderId = productOrderId;
     }
 
     public int getProductId() {
@@ -81,6 +98,22 @@ public class ProductEntity {
 
     public void setProductType(ProductTypeEntity productType) {
         this.productType = productType;
+    }
+
+    public int getProductQuantity() {
+        return this.productQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity) {
+        this.productQuantity = productQuantity;
+    }
+
+    public int getProductOrderId() {
+        return this.productOrderId;
+    }
+
+    public void setProductOrderId(int productOrderId) {
+        this.productOrderId = productOrderId;
     }
 
     @Override

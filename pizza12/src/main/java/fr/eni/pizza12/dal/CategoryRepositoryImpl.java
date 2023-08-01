@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.pizza12.bo.CategoryEntity;
@@ -19,12 +18,10 @@ import fr.eni.pizza12.bo.CategoryEntity;
 public class CategoryRepositoryImpl implements CategoryRepository {
 
   private final JdbcTemplate jdbcTemplate;
-  private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Autowired
   public CategoryRepositoryImpl(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
-    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
   }
 
   private static class CategoryRowMapper implements RowMapper<CategoryEntity> {
@@ -39,8 +36,9 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
   @Override
   public List<CategoryEntity> getAllCategories() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getAllCategories'");
+    String sql = "SELECT * FROM categories";
+
+    return jdbcTemplate.query(sql, new CategoryRowMapper());
   }
 
   @Override

@@ -1,8 +1,6 @@
 package fr.eni.pizza12.bo;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OrderEntity {
 

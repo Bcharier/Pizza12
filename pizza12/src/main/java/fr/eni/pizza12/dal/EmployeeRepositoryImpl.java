@@ -7,22 +7,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.pizza12.bo.EmployeeEntity;
-import org.springframework.stereotype.Repository;
 
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
   private final JdbcTemplate jdbcTemplate;
-  private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Autowired
   public EmployeeRepositoryImpl(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
-    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
   }
 
   private static class EmployeeRowMapper implements RowMapper<EmployeeEntity> {

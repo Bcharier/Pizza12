@@ -7,10 +7,14 @@
 		<link rel="stylesheet" href="/styles.css" />
 	</head>
 	<body>
-		<header th:replace="~{/fragments :: header}"></header>
+		<header th:replace="~{/fragments/fragments :: header}"></header>
 
 		<div class="main-container">
 			<h1 class="main-title">Mon panier</h1>
+			<div
+				th:replace="~{/fragments/cart-fragment :: cart}"
+				class="cart-container"
+			></div>
 		</div>
 	</body>
 </html>

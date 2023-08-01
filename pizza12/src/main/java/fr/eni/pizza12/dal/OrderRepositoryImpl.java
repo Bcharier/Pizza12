@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.pizza12.bo.OrderEntity;
@@ -21,12 +20,10 @@ import fr.eni.pizza12.bo.OrderStates;
 public class OrderRepositoryImpl implements OrderRepository {
 
   private final JdbcTemplate jdbcTemplate;
-  private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Autowired
   public OrderRepositoryImpl(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
-    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
   }
 
   private static class OrderRowMapper implements RowMapper<OrderEntity> {
@@ -47,6 +44,17 @@ public class OrderRepositoryImpl implements OrderRepository {
     String sql = "SELECT * FROM orders";
 
     return jdbcTemplate.query(sql, new OrderRowMapper());
+  }
+
+  @Override
+  public List<OrderEntity> getOrderByAccountId(int accountId) {
+    String sql = "SELECT * FROM orders WHERE orderAccountId = ?";
+
+    return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, accountId);
+      }
+    }, new OrderRowMapper());
   }
 
   @Override
@@ -81,4 +89,37 @@ public class OrderRepositoryImpl implements OrderRepository {
     });
   }
 
+  @Override
+  public List<OrderEntity> getOrderByTableNumber(int tableNumber) {
+    String sql = "SELECT * FROM orders WHERE orderTableNum = ?";
+
+    return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, tableNumber);
+      }
+    }, new OrderRowMapper());
+  }
+
+  @Override
+  public List<OrderEntity> getOrderByOrderState(OrderStates orderState) {
+    String sql = "SELECT * FROM orders WHERE orderStatus = ?";
+
+    return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, orderState.name());
+      }
+    }, new OrderRowMapper());
+  }
+
+  @Override
+  public List<OrderEntity> getOrderByAccountIdAndByOrderState(int accountId, OrderStates orderState) {
+    String sql = "SELECT * FROM orders WHERE orderAccountId = ? AND orderStatus = ?";
+
+    return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, accountId);
+        preparedStatement.setString(2, orderState.name());
+      }
+    }, new OrderRowMapper());
+  }
 }
