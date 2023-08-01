@@ -1,63 +1,71 @@
 package fr.eni.pizza12.bo;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderEntity {
 
-    private int orderId;
-    private int tableNumber;
-    private LocalTime deliveryTime;
-    private OrderStatus orderState;
-    private int accountId;
+  private int orderId;
+  private int tableNumber;
+  private LocalTime deliveryTime;
+  private OrderStatus orderState;
+  private int accountId;
+  private List<OrderItemEntity> orderItems;
 
-    public OrderEntity() {
-    }
+  public OrderEntity() {
+  }
 
-    public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId) {
-        this.orderId = orderId;
-        this.tableNumber = tableNumber;
-        this.deliveryTime = deliveryTime;
-        this.orderState = orderState;
-        this.accountId = accountId;
-    }
+  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId, List<) {
+    this.orderId = orderId;
+    this.tableNumber = tableNumber;
+    this.deliveryTime = deliveryTime;
+    this.orderState = orderState;
+    this.accountId = accountId;
 
-    public int getOrderId() {
-        return this.orderId;
-    }
+  }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
+  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId) {
+    OrderEntity(orderId, tableNumber, deliveryTime, orderState, accountId, new ArrayList<OrderItemEntity>())
+  }
 
-    public int getTableNumber() {
-        return this.tableNumber;
-    }
+  public int getOrderId() {
+    return this.orderId;
+  }
 
-    public void setTableNumber(int tableNumber) {
-        this.tableNumber = tableNumber;
-    }
+  public void setOrderId(int orderId) {
+    this.orderId = orderId;
+  }
 
-    public LocalTime getDeliveryTime() {
-        return this.deliveryTime;
-    }
+  public int getTableNumber() {
+    return this.tableNumber;
+  }
 
-    public void setDeliveryTime(LocalTime deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
+  public void setTableNumber(int tableNumber) {
+    this.tableNumber = tableNumber;
+  }
 
-    public OrderStatus getOrderState() {
-        return this.orderState;
-    }
+  public LocalTime getDeliveryTime() {
+    return this.deliveryTime;
+  }
 
-    public void setOrderState(OrderStatus orderState) {
-        this.orderState = orderState;
-    }
+  public void setDeliveryTime(LocalTime deliveryTime) {
+    this.deliveryTime = deliveryTime;
+  }
 
-    public int getAccountId() {
-        return this.accountId;
-    }
+  public OrderStatus getOrderState() {
+    return this.orderState;
+  }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
+  public void setOrderState(OrderStatus orderState) {
+    this.orderState = orderState;
+  }
+
+  public int getAccountId() {
+    return this.accountId;
+  }
+
+  public void setAccountId(int accountId) {
+    this.accountId = accountId;
+  }
 }

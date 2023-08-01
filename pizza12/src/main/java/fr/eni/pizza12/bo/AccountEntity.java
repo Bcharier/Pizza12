@@ -4,95 +4,95 @@ import java.time.LocalDate;
 
 public class AccountEntity {
 
-    private int accountId;
-    private String accountLastName;
-    private String accountFirstName;
-    private LocalDate accountDateOfBirth;
-    private LocalDate accountDateOfCreation;
-    private String accountMail;
-    private String accountPhone;
+  private int accountId;
+  private String accountLastName;
+  private String accountFirstName;
+  private LocalDate accountDateOfBirth;
+  private LocalDate accountDateOfCreation;
+  private String accountMail;
+  private String accountPhone;
 
-    public AccountEntity() {
-    }
+  public AccountEntity() {
+  }
 
-    public AccountEntity(int accountId, String accountLastName, String accountFirstName, LocalDate accountDateOfBirth,
-            LocalDate accountDateOfCreation, String accountMail, String accountPhone) {
-        this.accountId = accountId;
-        this.accountLastName = accountLastName;
-        this.accountFirstName = accountFirstName;
-        this.accountDateOfBirth = accountDateOfBirth;
-        this.accountDateOfCreation = accountDateOfCreation;
-        this.accountMail = accountMail;
-        this.accountPhone = accountPhone;
-    }
+  public AccountEntity(int accountId, String accountLastName, String accountFirstName, LocalDate accountDateOfBirth,
+      LocalDate accountDateOfCreation, String accountMail, String accountPhone) {
+    this.accountId = accountId;
+    this.accountLastName = accountLastName;
+    this.accountFirstName = accountFirstName;
+    this.accountDateOfBirth = accountDateOfBirth;
+    this.accountDateOfCreation = accountDateOfCreation;
+    this.accountMail = accountMail;
+    this.accountPhone = accountPhone;
+  }
 
-    public int getAccountId() {
-        return this.accountId;
-    }
+  public int getAccountId() {
+    return this.accountId;
+  }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
+  public void setAccountId(int accountId) {
+    this.accountId = accountId;
+  }
 
-    public String getAccountLastName() {
-        return this.accountLastName;
-    }
+  public String getAccountLastName() {
+    return this.accountLastName;
+  }
 
-    public void setAccountLastName(String accountLastName) {
-        this.accountLastName = accountLastName;
-    }
+  public void setAccountLastName(String accountLastName) {
+    this.accountLastName = accountLastName;
+  }
 
-    public String getAccountFirstName() {
-        return this.accountFirstName;
-    }
+  public String getAccountFirstName() {
+    return this.accountFirstName;
+  }
 
-    public void setAccountFirstName(String accountFirstName) {
-        this.accountFirstName = accountFirstName;
-    }
+  public void setAccountFirstName(String accountFirstName) {
+    this.accountFirstName = accountFirstName;
+  }
 
-    public LocalDate getAccountDateOfBirth() {
-        return this.accountDateOfBirth;
-    }
+  public LocalDate getAccountDateOfBirth() {
+    return this.accountDateOfBirth;
+  }
 
-    public void setAccountDateOfBirth(LocalDate accountDateOfBirth) {
-        this.accountDateOfBirth = accountDateOfBirth;
-    }
+  public void setAccountDateOfBirth(LocalDate accountDateOfBirth) {
+    this.accountDateOfBirth = accountDateOfBirth;
+  }
 
-    public LocalDate getAccountDateOfCreation() {
-        return this.accountDateOfCreation;
-    }
+  public LocalDate getAccountDateOfCreation() {
+    return this.accountDateOfCreation;
+  }
 
-    public void setAccountDateOfCreation(LocalDate accountDateOfCreation) {
-        this.accountDateOfCreation = accountDateOfCreation;
-    }
+  public void setAccountDateOfCreation(LocalDate accountDateOfCreation) {
+    this.accountDateOfCreation = accountDateOfCreation;
+  }
 
-    public String getAccountMail() {
-        return this.accountMail;
-    }
+  public String getAccountMail() {
+    return this.accountMail;
+  }
 
-    public void setAccountMail(String accountMail) {
-        this.accountMail = accountMail;
-    }
+  public void setAccountMail(String accountMail) {
+    this.accountMail = accountMail;
+  }
 
-    public String getAccountPhone() {
-        return this.accountPhone;
-    }
+  public String getAccountPhone() {
+    return this.accountPhone;
+  }
 
-    public void setAccountPhone(String accountPhone) {
-        this.accountPhone = accountPhone;
-    }
+  public void setAccountPhone(String accountPhone) {
+    this.accountPhone = accountPhone;
+  }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " accountId='" + getAccountId() + "'" +
-                ", accountLastName='" + getAccountLastName() + "'" +
-                ", accountFirstName='" + getAccountFirstName() + "'" +
-                ", accountDateOfBirth='" + getAccountDateOfBirth() + "'" +
-                ", accountDateOfCreation='" + getAccountDateOfCreation() + "'" +
-                ", accountMail='" + getAccountMail() + "'" +
-                ", accountPhone='" + getAccountPhone() + "'" +
-                "}";
-    }
+  @Override
+  public String toString() {
+    return "{" +
+        " accountId='" + getAccountId() + "'" +
+        ", accountLastName='" + getAccountLastName() + "'" +
+        ", accountFirstName='" + getAccountFirstName() + "'" +
+        ", accountDateOfBirth='" + getAccountDateOfBirth() + "'" +
+        ", accountDateOfCreation='" + getAccountDateOfCreation() + "'" +
+        ", accountMail='" + getAccountMail() + "'" +
+        ", accountPhone='" + getAccountPhone() + "'" +
+        "}";
+  }
 
 }

@@ -12,8 +12,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import fr.eni.pizza12.bo.CategoryEntity;
 import fr.eni.pizza12.bo.OrderItemEntity;
 import fr.eni.pizza12.bo.OrderItemsStatus;
+import fr.eni.pizza12.bo.ProductEntity;
 
 @Repository
 public class OrderItemRepositoryImpl implements OrderItemRepository {
@@ -31,7 +33,8 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     public OrderItemEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
       OrderItemEntity orderItemEntity = new OrderItemEntity();
       orderItemEntity.setOrderId(rs.getInt("orderId"));
-      orderItemEntity.setOrderItemId(rs.getInt("orderItemId"));
+      orderItemEntity.setOrderItem(new ProductEntity(rs.getInt("productId"), rs.getString("productName"),
+          rs.getBigDecimal("productPrice"), rs.getBoolean("isActive"), new CategoryEntity()));
       orderItemEntity.setOrderItemQuantity(rs.getInt("orderItemQuantity"));
       orderItemEntity.setOrderItemsStatus(OrderItemsStatus.valueOf(rs.getString("orderItemStatus")));
       return orderItemEntity;
@@ -63,7 +66,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     jdbcTemplate.update(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, orderItemEntity.getOrderId());
-        preparedStatement.setInt(2, orderItemEntity.getOrderItemId());
+        preparedStatement.setInt(2, orderItemEntity.getOrderItem().getProductId());
         preparedStatement.setInt(3, orderItemEntity.getOrderItemQuantity());
         preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
       }
@@ -76,7 +79,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
 
     jdbcTemplate.update(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
-        preparedStatement.setInt(1, orderItemEntity.getOrderItemId());
+        preparedStatement.setInt(1, orderItemEntity.getOrderItem().getProductId());
       }
     });
   }
@@ -99,7 +102,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     jdbcTemplate.update(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, orderItemEntity.getOrderId());
-        preparedStatement.setInt(2, orderItemEntity.getOrderItemId());
+        preparedStatement.setInt(2, orderItemEntity.getOrderItem().getProductId());
         preparedStatement.setInt(3, orderItemEntity.getOrderItemQuantity());
         preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
       }
@@ -112,8 +115,9 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     sql.append(" FROM orderItems oI");
     sql.append(" INNER JOIN orders o");
     sql.append(" ON oI.orderId = o.orderId");
-    sql.append(" WHERE TIMEDIFF(o.orderScheduledDeliveryTime, NOW()) <= '12:00:00'");
-    sql.append(" AND orderStatus <> 'LIVREE'");
+    sql.append(" INNER JOIN products p");
+    sql.append(" ON p.productId = oI.orderItemId");
+    sql.append(" AND orderStatus = 'A_PREPARER'");
     sql.append(" ORDER BY o.orderId");
     sql.append(";");
 
