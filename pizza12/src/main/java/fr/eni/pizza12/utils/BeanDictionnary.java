@@ -10,7 +10,6 @@ public class BeanDictionnary {
   @Bean
   public MenuHelper menuHelper() {
     return new MenuHelper();
-
   }
 
 }
