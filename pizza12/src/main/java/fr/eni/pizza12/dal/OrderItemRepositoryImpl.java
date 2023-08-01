@@ -18,92 +18,105 @@ import fr.eni.pizza12.bo.OrderItemsStatus;
 @Repository
 public class OrderItemRepositoryImpl implements OrderItemRepository {
 
-    private final JdbcTemplate jdbcTemplate;
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+  private final JdbcTemplate jdbcTemplate;
+  private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Autowired
-    public OrderItemRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+  @Autowired
+  public OrderItemRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+  }
+
+  private static class OrderItemRowMapper implements RowMapper<OrderItemEntity> {
+    public OrderItemEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+      OrderItemEntity orderItemEntity = new OrderItemEntity();
+      orderItemEntity.setOrderId(rs.getInt("orderId"));
+      orderItemEntity.setOrderItemId(rs.getInt("orderItemId"));
+      orderItemEntity.setOrderItemQuantity(rs.getInt("orderItemQuantity"));
+      orderItemEntity.setOrderItemsStatus(OrderItemsStatus.valueOf(rs.getString("orderItemStatus")));
+      return orderItemEntity;
     }
+  }
 
-    private static class OrderItemRowMapper implements RowMapper<OrderItemEntity> {
-        public OrderItemEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-            OrderItemEntity orderItemEntity = new OrderItemEntity();
-            orderItemEntity.setOrderId(rs.getInt("orderId"));
-            orderItemEntity.setOrderItemId(rs.getInt("orderItemId"));
-            orderItemEntity.setOrderItemQuantity(rs.getInt("orderItemQuantity"));
-            orderItemEntity.setOrderItemsStatus(OrderItemsStatus.valueOf(rs.getString("orderItemStatus")));
-            return orderItemEntity;
-        }
-    }
+  @Override
+  public List<OrderItemEntity> getAllOrderItems() {
+    String sql = "SELECT * FROM orderItems";
 
-    @Override
-    public List<OrderItemEntity> getAllOrderItems() {
-        String sql = "SELECT * FROM orderItems";
+    return jdbcTemplate.query(sql, new OrderItemRowMapper());
+  }
 
-        return jdbcTemplate.query(sql, new OrderItemRowMapper());
-    }
+  @Override
+  public List<OrderItemEntity> getOrderItemByOrderId(int id) {
+    String sql = "SELECT * FROM orderItems WHERE orderId = ?";
 
-    @Override
-    public List<OrderItemEntity> getOrderItemByOrderId(int id) {
-        String sql = "SELECT * FROM orderItems WHERE orderId = ?";
+    return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, id);
+      }
+    }, new OrderItemRowMapper());
+  }
 
-        return jdbcTemplate.query(sql, new PreparedStatementSetter() {
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setInt(1, id);
-            }
-        }, new OrderItemRowMapper());
-    }
+  @Override
+  public void addOrderItem(OrderItemEntity orderItemEntity) {
+    String sql = "INSERT INTO orderItems(orderId, orderItemId, orderItemQuantity, orderItemStatus) VALUES(?, ?, ?, ?)";
 
-    @Override
-    public void addOrderItem(OrderItemEntity orderItemEntity) {
-        String sql = "INSERT INTO orderItems(orderId, orderItemId, orderItemQuantity, orderItemStatus) VALUES(?, ?, ?, ?)";
+    jdbcTemplate.update(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, orderItemEntity.getOrderId());
+        preparedStatement.setInt(2, orderItemEntity.getOrderItemId());
+        preparedStatement.setInt(3, orderItemEntity.getOrderItemQuantity());
+        preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
+      }
+    });
+  }
 
-        jdbcTemplate.update(sql, new PreparedStatementSetter() {
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setInt(1, orderItemEntity.getOrderId());
-                preparedStatement.setInt(2, orderItemEntity.getOrderItemId());
-                preparedStatement.setInt(3, orderItemEntity.getOrderItemQuantity());
-                preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
-            }
-        });
-    }
+  @Override
+  public void deleteOrderItem(OrderItemEntity orderItemEntity) {
+    String sql = "DELETE FROM orderItems WHERE orderItemId = ?";
 
-    @Override
-    public void deleteOrderItem(OrderItemEntity orderItemEntity) {
-        String sql = "DELETE FROM orderItems WHERE orderItemId = ?";
+    jdbcTemplate.update(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, orderItemEntity.getOrderItemId());
+      }
+    });
+  }
 
-        jdbcTemplate.update(sql, new PreparedStatementSetter() {
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setInt(1, orderItemEntity.getOrderItemId());
-            }
-        });
-    }
+  @Override
+  public void deleteAllOrderItemsInOrder(OrderItemEntity orderItemEntity) {
+    String sql = "DELETE FROM orderItems WHERE orderId = ?";
 
-    @Override
-    public void deleteAllOrderItemsInOrder(OrderItemEntity orderItemEntity) {
-        String sql = "DELETE FROM orderItems WHERE orderId = ?";
+    jdbcTemplate.update(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, orderItemEntity.getOrderId());
+      }
+    });
+  }
 
-        jdbcTemplate.update(sql, new PreparedStatementSetter() {
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setInt(1, orderItemEntity.getOrderId());
-            }
-        });
-    }
+  @Override
+  public void updateOrderItem(OrderItemEntity orderItemEntity) {
+    String sql = "UPDATE orderItems SET orderId = ?, orderItemId = ?, orderItemQuantity = ?, orderItemStatus = ?";
 
-    @Override
-    public void updateOrderItem(OrderItemEntity orderItemEntity) {
-        String sql = "UPDATE orderItems SET orderId = ?, orderItemId = ?, orderItemQuantity = ?, orderItemStatus = ?";
+    jdbcTemplate.update(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, orderItemEntity.getOrderId());
+        preparedStatement.setInt(2, orderItemEntity.getOrderItemId());
+        preparedStatement.setInt(3, orderItemEntity.getOrderItemQuantity());
+        preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
+      }
+    });
+  }
 
-        jdbcTemplate.update(sql, new PreparedStatementSetter() {
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setInt(1, orderItemEntity.getOrderId());
-                preparedStatement.setInt(2, orderItemEntity.getOrderItemId());
-                preparedStatement.setInt(3, orderItemEntity.getOrderItemQuantity());
-                preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
-            }
-        });
-    }
+  public List<OrderItemEntity> getAllPendingOrdersItems() {
+    StringBuilder sql = new StringBuilder();
+    sql.append(" SELECT *");
+    sql.append(" FROM orderItems oI");
+    sql.append(" INNER JOIN orders o");
+    sql.append(" ON oI.orderId = o.orderId");
+    sql.append(" WHERE TIMEDIFF(o.orderScheduledDeliveryTime, NOW()) <= '12:00:00'");
+    sql.append(" AND orderStatus <> 'LIVREE'");
+    sql.append(" ORDER BY o.orderId");
+    sql.append(";");
 
+    return jdbcTemplate.query(sql.toString(), new OrderItemRowMapper());
+  }
 }

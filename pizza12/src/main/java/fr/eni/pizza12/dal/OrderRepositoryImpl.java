@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.pizza12.bo.OrderEntity;
-import fr.eni.pizza12.bo.OrderStates;
+import fr.eni.pizza12.bo.OrderStatus;
 
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
@@ -36,7 +36,7 @@ public class OrderRepositoryImpl implements OrderRepository {
       orderEntity.setTableNumber(rs.getInt("orderTableNum"));
       orderEntity.setAccountId(rs.getInt("orderAccountId"));
       orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
-      orderEntity.setOrderState(OrderStates.valueOf(rs.getString("orderStatus")));
+      orderEntity.setOrderState(OrderStatus.valueOf(rs.getString("orderStatus")));
 
       return orderEntity;
     }

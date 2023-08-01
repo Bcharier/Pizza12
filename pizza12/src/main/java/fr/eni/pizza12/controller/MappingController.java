@@ -1,6 +1,8 @@
 package fr.eni.pizza12.controller;
 
+import fr.eni.pizza12.dal.OrderItemRepository;
 import fr.eni.pizza12.dal.ProductRepository;
+import fr.eni.pizza12.bo.OrderItemEntity;
 import fr.eni.pizza12.bo.ProductEntity;
 
 import java.util.ArrayList;
@@ -15,9 +17,11 @@ import org.springframework.ui.Model;
 public class MappingController {
 
   private ProductRepository productRepository;
+  private OrderItemRepository orderItemRepository;
 
-  public MappingController(ProductRepository productRepository) {
+  public MappingController(ProductRepository productRepository, OrderItemRepository orderItemRepository) {
     this.productRepository = productRepository;
+    this.orderItemRepository = orderItemRepository;
   }
 
   @GetMapping("/")
@@ -55,7 +59,10 @@ public class MappingController {
   }
 
   @GetMapping("/listOrders")
-  public String listOrders() {
+  public String listOrders(Model model) {
+    List<OrderItemEntity> orderList = new ArrayList<>();
+    orderList = orderItemRepository.getAllPendingOrdersItems();
+    model.addAttribute("orderList", orderList);
     return "listOrders";
   }
 

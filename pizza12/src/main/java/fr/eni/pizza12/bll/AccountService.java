@@ -6,21 +6,21 @@ import fr.eni.pizza12.bo.AccountEntity;
 
 public interface AccountService {
 
-    public List<AccountEntity> getAllAccounts();
+  public List<AccountEntity> getAllAccounts();
 
-    public AccountEntity getAccountbyId(int id);
+  public AccountEntity getAccountbyId(int id);
 
-    public List<AccountEntity> getAccountByFirstName(String accountFirstName);
+  public List<AccountEntity> getAccountByFirstName(String accountFirstName);
 
-    public List<AccountEntity> getAccountByLastName(String accountLastName);
+  public List<AccountEntity> getAccountByLastName(String accountLastName);
 
-    public List<AccountEntity> getAccountByName(String accountName);
+  public List<AccountEntity> getAccountByName(String accountName);
 
-    public void deleteAccount(AccountEntity accountEntity);
+  public void deleteAccount(AccountEntity accountEntity);
 
-    public void deleteAccountById(int id);
+  public void deleteAccountById(int id);
 
-    public AccountEntity updateAccount(AccountEntity accountEntity);
+  public AccountEntity updateAccount(AccountEntity accountEntity);
 
-    public void addAccount(AccountEntity accountEntity);
+  public void addAccount(AccountEntity accountEntity);
 }

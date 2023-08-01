@@ -7,13 +7,13 @@ public class OrderEntity {
     private int orderId;
     private int tableNumber;
     private LocalTime deliveryTime;
-    private OrderStates orderState;
+    private OrderStatus orderState;
     private int accountId;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStates orderState, int accountId) {
+    public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId) {
         this.orderId = orderId;
         this.tableNumber = tableNumber;
         this.deliveryTime = deliveryTime;
@@ -45,11 +45,11 @@ public class OrderEntity {
         this.deliveryTime = deliveryTime;
     }
 
-    public OrderStates getOrderState() {
+    public OrderStatus getOrderState() {
         return this.orderState;
     }
 
-    public void setOrderState(OrderStates orderState) {
+    public void setOrderState(OrderStatus orderState) {
         this.orderState = orderState;
     }
 

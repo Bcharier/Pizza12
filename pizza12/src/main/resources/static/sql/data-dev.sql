@@ -80,3 +80,28 @@ INSERT INTO Products VALUES
 	, (27, "Suppli", 2.40, TRUE, 2, 1)
 	, (28, "Arancini", 2.00, TRUE, 2, 1)
 ;
+
+INSERT INTO Orders VALUES
+	(1, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
+	, (2, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
+	, (3, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
+	, (4, 1, 1, "2023-08-01 12:00:00", "PAYEE", 0.00)
+	, (5, 1, 1, "2023-08-01 12:00:00", "LIVREE", 0.00)
+	, (6, 1, 1, "2023-08-01 12:00:00", "ANNULEE", 0.00)
+;
+
+INSERT INTO OrderItems VALUES
+	(1, 1, 2, "COMMANDEE")
+	, (1, 10, 2, "COMMANDEE")
+	, (2, 2, 2, "PREPAREE")
+	, (2, 9, 2, "PREPAREE")
+	, (3, 7, 2, "CUISSON")
+	, (3, 11, 2, "CUISSON")
+	, (4, 4, 2, "PRETE")
+	, (4, 10, 2, "PRETE")
+	, (5, 6, 2, "LIVREE")
+	, (5, 9, 2, "LIVREE")
+	, (6, 27, 20, "ANNULEE")
+	, (6, 18, 20, "ANNULEE")
+	
+;
