@@ -14,9 +14,10 @@
 				<div class="order-stump-title" data-th-text="${order.getOrderId()}"></div>
 				<div class="order-stump-content">
 					<div class="order-item" th:each="item, iStat : ${order.getOrderItems()}">
-						<div class="order-item-quantity"><th:block data-th-text="${item.getOrderItemQuantity()}" /> x </div>
-						<div class="order-item-name"><th:block data-th-text="${item.getOrderItem().getProductName()}" /></div>
-						
+						<div class="order-item-quantity-decrease">-</div><div class="order-item-quantity"><th:block data-th-text="${item.getOrderItemQuantity()}" /> x </div><div class="order-item-quantity-increase">+</div>
+						<div class="order-item-name"><th:block data-th-text="${item.getOrderItem().getProductName()} + ' (' + ${item.getOrderItem().getProductPrice()} + ')'" /></div>
+						<div class="order-item-price"><th:block data-th-text="${item.getOrderItem().getProductPrice()*item.getOrderItemQuantity()}" /> €</div>
+						<div class="order-item-delete"><img src="/pictos/icon_thrashcan.png" alt="Supprimer" title="Supprimer" /></div>
 					</div>
 				</div>
 
