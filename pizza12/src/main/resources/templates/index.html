@@ -8,15 +8,17 @@
 	<body>
 		<header th:replace="~{/fragments/fragments :: header}"></header>
 		<div class="main-container">
-			<h1>Hello Pizza</h1>
-
-			<a href="/login" class="button">Page de Connexion</a>
+			<h1 class="fancy-title">Notre menu</h1>
+			<ul class="navigation-container">
+				<li class="navigation-link active">Tout</li>
+				<th:block th:each="category, iStat : ${categories}">
+					<li class="navigation-link" th:text="${category}"></li>
+				</th:block>
+			</ul>
 			<div th:replace="~{/fragments/menu :: menu}"></div>
-			<a href="/designSystem" class="button button-design"
-				>designSystem</a
-			>
 		</div>
 
 		<footer th:replace="~{/fragments/fragments :: footer}"></footer>
+		<script src="/js/menu.js"></script>
 	</body>
 </html>

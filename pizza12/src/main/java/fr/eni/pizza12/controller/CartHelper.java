@@ -38,7 +38,7 @@ public class CartHelper {
         return listFinalProducts;
     }
 
-    public List<OrderEntity> generateActiveOrderList(List<OrderEntity> listOrders) {
+    public List<OrderEntity> filterOngoingOrders(List<OrderEntity> listOrders) {
         List<OrderEntity> listOngoingOrders = new ArrayList<>();
 
         for (OrderEntity order : listOrders) {

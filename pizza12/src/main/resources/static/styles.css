@@ -1,5 +1,6 @@
 @import 'utility.css';
 @import 'fragments.css';
+@import 'cart.css';
 
 .main-container  {
     display: flex;
@@ -9,7 +10,39 @@
     gap: 2rem;
 }
 
-.button-design {
-    position: absolute;
-    bottom: 2rem;
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem 0;
+    width: 70%;
 }
+
+.category-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    border-bottom: 0.1rem dotted var(--primary-color);
+    display: flex;
+    width: 100%;
+    padding-right: 1rem;
+    margin: 0.5rem 0;
+}
+
+.product-price {
+    margin-left: auto;
+    position: relative;
+    left: 2rem;
+}
+
+.product-add-icon {
+    position: relative;
+    left: 5rem;
+}
+
+.product-add-icon:focus {
+    transform: rotate(180deg);
+    transition: all 0.3s;
+}
+

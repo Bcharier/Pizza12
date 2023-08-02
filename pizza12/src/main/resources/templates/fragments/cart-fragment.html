@@ -1,12 +1,12 @@
 <div th:fragment="cart" class="cart-container">
 	<th:block th:each="order, iStat : ${order}">
-		<h2 th:text="'Ma commande n°' + ${order.orderId}"></h2>
-        <h2>Détail de ma commande</h2>
-        <div><span>nom du produit</span><span>quantité</span></div>
+		<h2 class="secondary-title" th:text="'Ma commande n°' + ${order.orderId}"></h2>
+        <h2 class="small-title" th:text="'Statut de la commande : ' + ${order.orderState}"></h2>
+        <div class="cart-list-header"><span>nom du produit</span><span>quantité</span></div>
         <th:block th:each="product, iStat : ${listProducts}">
             <ul>
                 <th:block th:if="${product.productOrderId == order.orderId}">
-                    <li><span th:text="${product.productName}"></span><span th:text="${product.productQuantity}"></span><img src="/pictos/icon_cross.png" alt="Supprimer le produit"></li>
+                    <li class="cart-list-item"><span th:text="${product.productName}"></span><span th:text="${product.productQuantity}"></span><img class="picto-sm" src="/pictos/icon_cross.png" alt="Supprimer le produit"></li>
                 </th:block>
             </ul>
         </th:block>

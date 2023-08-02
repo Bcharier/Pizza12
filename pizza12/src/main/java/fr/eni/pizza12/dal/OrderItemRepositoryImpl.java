@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,7 +31,11 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
             orderItemEntity.setOrderId(rs.getInt("orderId"));
             orderItemEntity.setOrderItemId(rs.getInt("orderItemId"));
             orderItemEntity.setOrderItemQuantity(rs.getInt("orderItemQuantity"));
-            orderItemEntity.setOrderItemsStatus(OrderItemsStatus.valueOf(rs.getString("orderItemStatus")));
+            if (Objects.isNull(rs.getString("orderItemStatus"))) {
+                orderItemEntity.setOrderItemsStatus(null);
+            } else {
+                orderItemEntity.setOrderItemsStatus(OrderItemsStatus.valueOf(rs.getString("orderItemStatus")));
+            }
             return orderItemEntity;
         }
     }
@@ -62,7 +67,11 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
                 preparedStatement.setInt(1, orderItemEntity.getOrderId());
                 preparedStatement.setInt(2, orderItemEntity.getOrderItemId());
                 preparedStatement.setInt(3, orderItemEntity.getOrderItemQuantity());
-                preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
+                if (Objects.isNull(orderItemEntity.getOrderItemsStatus())) {
+                    preparedStatement.setString(4, null);
+                } else {
+                    preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
+                }
             }
         });
     }

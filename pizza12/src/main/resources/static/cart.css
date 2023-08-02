@@ -1,0 +1,24 @@
+.cart-container {
+    width: 75%;
+}
+
+h2 {
+    justify-content: center;
+}
+
+.cart-list-header, .cart-list-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 1rem 0;
+}
+
+.cart-list-header {
+    font-weight: 700;
+}
+
+.cart-list-item > span {
+    width: 30%;
+}
+

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -32,7 +33,11 @@ public class OrderRepositoryImpl implements OrderRepository {
       orderEntity.setOrderId(rs.getInt("orderId"));
       orderEntity.setTableNumber(rs.getInt("orderTableNum"));
       orderEntity.setAccountId(rs.getInt("orderAccountId"));
-      orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
+      if (Objects.isNull(rs.getTime("orderScheduledDeliveryTime"))) {
+        orderEntity.setDeliveryTime(null);
+      } else {
+        orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
+      }
       orderEntity.setOrderState(OrderStates.valueOf(rs.getString("orderStatus")));
 
       return orderEntity;
@@ -66,7 +71,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         preparedStatement.setInt(1, orderEntity.getOrderId());
         preparedStatement.setInt(2, orderEntity.getTableNumber());
         preparedStatement.setInt(3, orderEntity.getAccountId());
-        preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
+        if (Objects.isNull(orderEntity.getDeliveryTime())) {
+          preparedStatement.setTime(4, null);
+        } else {
+          preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
+        }
         preparedStatement.setString(5, orderEntity.getOrderState().name());
         preparedStatement.setInt(6, 0);
       }
@@ -82,7 +91,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         preparedStatement.setInt(1, orderEntity.getOrderId());
         preparedStatement.setInt(2, orderEntity.getTableNumber());
         preparedStatement.setInt(3, orderEntity.getAccountId());
-        preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
+        if (Objects.isNull(orderEntity.getDeliveryTime())) {
+          preparedStatement.setTime(4, null);
+        } else {
+          preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
+        }
         preparedStatement.setString(5, orderEntity.getOrderState().name());
         preparedStatement.setInt(6, 0);
       }
