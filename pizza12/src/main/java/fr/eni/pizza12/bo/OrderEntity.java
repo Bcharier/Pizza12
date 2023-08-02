@@ -16,17 +16,18 @@ public class OrderEntity {
   public OrderEntity() {
   }
 
-  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId, List<) {
+  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId,
+      ArrayList<OrderItemEntity> itemList) {
     this.orderId = orderId;
     this.tableNumber = tableNumber;
     this.deliveryTime = deliveryTime;
     this.orderState = orderState;
     this.accountId = accountId;
-
+    this.orderItems = itemList;
   }
 
   public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId) {
-    OrderEntity(orderId, tableNumber, deliveryTime, orderState, accountId, new ArrayList<OrderItemEntity>())
+    this(orderId, tableNumber, deliveryTime, orderState, accountId, new ArrayList<OrderItemEntity>());
   }
 
   public int getOrderId() {
@@ -68,4 +69,13 @@ public class OrderEntity {
   public void setAccountId(int accountId) {
     this.accountId = accountId;
   }
+
+  public List<OrderItemEntity> getOrderItems() {
+    return this.orderItems;
+  }
+
+  public void setOrderItems(List<OrderItemEntity> orderItems) {
+    this.orderItems = orderItems;
+  }
+
 }

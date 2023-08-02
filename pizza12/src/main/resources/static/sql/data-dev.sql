@@ -68,7 +68,7 @@ INSERT INTO Products VALUES
 	, (15, "Glace arôme Vanille", 2.00, TRUE, 3, 1)
 	, (16, "Glace arôme Pistache", 2.00, TRUE, 3, 1)
 	, (17, "Glace à l'Italienne arôme Vanille de Madagascar", 2.00, TRUE, 3, 1)
-	, (18, "Glace à l'Italienne arôme Pistache de Californie", 2.00, TRUE, 3, 1)
+	, (18, "Glace à l'Italienne arôme Pistache de Bronte", 2.00, TRUE, 3, 1)
 	, (19, "Tiramisu", 2.00, TRUE, 3, 1)
 	, (20, "Panna cotta coulis Framboise", 2.00, TRUE, 3, 1)
 	, (21, "Bouquet d'Amaretti", 2.00, TRUE, 3, 1)
