@@ -12,4 +12,5 @@ public interface OrderRepository {
 
   public void updateOrder(OrderEntity orderEntity);
 
+  public List<OrderEntity> getAllPendingOrders();
 }

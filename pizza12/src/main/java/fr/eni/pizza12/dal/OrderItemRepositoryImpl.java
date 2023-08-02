@@ -50,7 +50,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
 
   @Override
   public List<OrderItemEntity> getOrderItemByOrderId(int id) {
-    String sql = "SELECT * FROM orderItems WHERE orderId = ?";
+    String sql = "SELECT * FROM orderItems oI INNER JOIN Products p ON oI.orderItemId = p.productId WHERE orderId = ?";
 
     return jdbcTemplate.query(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -107,20 +107,5 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
         preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
       }
     });
-  }
-
-  public List<OrderItemEntity> getAllPendingOrdersItems() {
-    StringBuilder sql = new StringBuilder();
-    sql.append(" SELECT *");
-    sql.append(" FROM orderItems oI");
-    sql.append(" INNER JOIN orders o");
-    sql.append(" ON oI.orderId = o.orderId");
-    sql.append(" INNER JOIN products p");
-    sql.append(" ON p.productId = oI.orderItemId");
-    sql.append(" AND orderStatus = 'A_PREPARER'");
-    sql.append(" ORDER BY o.orderId");
-    sql.append(";");
-
-    return jdbcTemplate.query(sql.toString(), new OrderItemRowMapper());
   }
 }

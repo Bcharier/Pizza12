@@ -17,6 +17,4 @@ public interface OrderItemRepository {
   public void deleteAllOrderItemsInOrder(OrderItemEntity orderItemEntity);
 
   public void updateOrderItem(OrderItemEntity orderItemEntity);
-
-  public List<OrderItemEntity> getAllPendingOrdersItems();
 }

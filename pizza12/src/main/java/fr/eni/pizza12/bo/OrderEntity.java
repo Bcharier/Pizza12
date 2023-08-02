@@ -10,24 +10,26 @@ public class OrderEntity {
   private int tableNumber;
   private LocalTime deliveryTime;
   private OrderStatus orderState;
-  private int accountId;
+  private AccountEntity account;
   private List<OrderItemEntity> orderItems;
 
   public OrderEntity() {
   }
 
-  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId,
+  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState,
+      AccountEntity account,
       ArrayList<OrderItemEntity> itemList) {
     this.orderId = orderId;
     this.tableNumber = tableNumber;
     this.deliveryTime = deliveryTime;
     this.orderState = orderState;
-    this.accountId = accountId;
+    this.account = account;
     this.orderItems = itemList;
   }
 
-  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState, int accountId) {
-    this(orderId, tableNumber, deliveryTime, orderState, accountId, new ArrayList<OrderItemEntity>());
+  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState,
+      AccountEntity account) {
+    this(orderId, tableNumber, deliveryTime, orderState, account, new ArrayList<OrderItemEntity>());
   }
 
   public int getOrderId() {
@@ -62,12 +64,12 @@ public class OrderEntity {
     this.orderState = orderState;
   }
 
-  public int getAccountId() {
-    return this.accountId;
+  public AccountEntity getAccount() {
+    return this.account;
   }
 
-  public void setAccountId(int accountId) {
-    this.accountId = accountId;
+  public void setAccount(AccountEntity account) {
+    this.account = account;
   }
 
   public List<OrderItemEntity> getOrderItems() {
