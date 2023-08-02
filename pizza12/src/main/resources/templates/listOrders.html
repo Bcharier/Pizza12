@@ -10,17 +10,30 @@
 		<header th:replace="~{/fragments/fragments :: header}"></header>
 		<div class="main-container">
 			<h1 class="main-title">Liste des commandes en cours</h1>
-			<div class="order-stump" th:each="order : ${orderList}">
-				<div class="order-stump-title" data-th-text="${order.getOrderId()}"></div>
+			<div th:class="'order-stump '+ ${order.getOrderStateName()}" th:each="order : ${orderList}">
+				<div class="order-stump-header"> <!-- OnClick enroule/déroule la liste des items -->
+					<div class="order-title" data-th-text="${@orderListHelper.displayOrderTitle(order)}" ></div>
+					<div class="order-time" data-th-text="${order.getDeliveryTime()}" ></div>
+					<div class="order-elements" data-th-text="'(' + ${@orderListHelper.getRemainingItemCount(order)} + '/'+ ${@orderListHelper.getNonCancelledItemCount(order)} +' éléments restant' + ${@orderListHelper.getItemToDeliverCount(order)} + ${@orderListHelper.getCancelledItemCount(order)} + ')'" ></div>
+					<div class="order-cancel"><img src="/pictos/icon_cancel.png" alt="ANNULER LA COMMANDE" title="ANNULER LA COMMANDE" /></div>
+				</div>
 				<div class="order-stump-content">
-					<div class="order-item" th:each="item, iStat : ${order.getOrderItems()}">
+					<div th:class="'order-item ' + ${item.getOrderItemsStatus()}" th:each="item, iStat : ${order.getOrderItems()}">
+						<!-- Utiliser item.getOrderItem().getProductId() -->
 						<div class="order-item-quantity-decrease">-</div><div class="order-item-quantity"><th:block data-th-text="${item.getOrderItemQuantity()}" /> x </div><div class="order-item-quantity-increase">+</div>
 						<div class="order-item-name"><th:block data-th-text="${item.getOrderItem().getProductName()} + ' (' + ${item.getOrderItem().getProductPrice()} + ')'" /></div>
 						<div class="order-item-price"><th:block data-th-text="${item.getOrderItem().getProductPrice()*item.getOrderItemQuantity()}" /> €</div>
-						<div class="order-item-delete"><img src="/pictos/icon_thrashcan.png" alt="Supprimer" title="Supprimer" /></div>
+						<div th:if="${#strings.equals(item.getOrderItemsStatus(),'COMMANDEE')}" class="order-item-tag-as-being-prepared"><img src="/pictos/icon_cutting_board.png" th:alt="'Passer ' + ${item.getOrderItem().getProductName()} + ' en preparation'" th:title="'Passer ' + ${item.getOrderItem().getProductName()} + ' en preparation'" /></div>
+						<div th:if="${#strings.equals(item.getOrderItemsStatus(),'EN_PREPARATION')}" class="order-item-tag-as-prepared"><img src="/pictos/icon_ready.png" th:alt="'Passer ' + ${item.getOrderItem().getProductName()} + ' à préparé'" th:title="'Passer ' + ${item.getOrderItem().getProductName()} + ' à préparé'" /></div>
+						<div th:if="${#strings.equals(item.getOrderItemsStatus(),'PREPAREE')}" class="order-item-tag-as-cooking"><img src="/pictos/icon_cooking.png" th:alt="'Passer ' + ${item.getOrderItem().getProductName()} + ' en cuisson'" th:title="'Passer ' + ${item.getOrderItem().getProductName()} + ' en cuisson'" /></div>
+						<div th:if="${#strings.equals(item.getOrderItemsStatus(),'CUISSON')}" class="order-item-tag-as-ready"><img src="/pictos/icon_plate_ready.png" th:alt="'Passer ' + ${item.getOrderItem().getProductName()} + ' à prêt'" th:title="'Passer ' + ${item.getOrderItem().getProductName()} + ' à prêt'" /></div>
+						<div th:if="${#strings.equals(item.getOrderItemsStatus(),'PRETE')}" class="order-item-tag-as-delivered"><img src="/pictos/icon_delivered.png" th:alt="'Passer ' + ${item.getOrderItem().getProductName()} + ' à livré'" th:title="'Passer ' + ${item.getOrderItem().getProductName()} + ' à livré'" /></div>
+						<div th:if="${#strings.equals(item.getOrderItemsStatus(),'LIVREE')}" class="order-item-delivered"><img src="/pictos/icon_delivered.png" th:alt="${item.getOrderItem().getProductName()} + ' à été livré'" th:title="${item.getOrderItem().getProductName()} + ' à été livré'" /></div><!-- N'est pas clickable -->
+						<div th:if="${#strings.equals(item.getOrderItemsStatus(),'ANNULEE')}" class="order-item-canceled"><img src="/pictos/icon_canceled.png" th:alt="${item.getOrderItem().getProductName()} + ' à été annulé'" th:title="${item.getOrderItem().getProductName()} + ' à été annulé'" /></div><!-- N'est pas clickable -->
+						<div class="order-item-delete"><img src="/pictos/icon_thrashcan.png" th:alt="'Annuler ' + ${item.getOrderItem().getProductName()}" th:title="'Annuler ' + ${item.getOrderItem().getProductName()}" /></div>
 					</div>
+					<div class="order-total-price">Total : <th:block th:text="${@orderListHelper.getTotalPrice(order)}"></th:block> €</div>
 				</div>
-
 			</div>
 	</body>
 </html>

@@ -60,6 +60,10 @@ public class OrderEntity {
     return this.orderState;
   }
 
+  public String getOrderStateName() {
+    return this.orderState.name();
+  }
+
   public void setOrderState(OrderStatus orderState) {
     this.orderState = orderState;
   }

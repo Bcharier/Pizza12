@@ -1,3 +1,4 @@
+USE Pizza12;
 INSERT INTO Categories VALUES (1, "Entrées", 1), (2, "Plats", 2), (3, "Desserts", 3), (4, "Boissons", 4);
 
 INSERT INTO Accounts VALUES
@@ -85,10 +86,11 @@ INSERT INTO Orders VALUES
 	(1, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
 	, (2, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
 	, (3, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
-	, (7, 1, 1, "2023-08-01 12:00:00", "A_PREPARER", 0.00)
 	, (4, 1, 1, "2023-08-01 12:00:00", "PAYEE", 0.00)
 	, (5, 1, 1, "2023-08-01 12:00:00", "LIVREE", 0.00)
 	, (6, 1, 1, "2023-08-01 12:00:00", "ANNULEE", 0.00)
+	, (7, 1, 1, "2023-08-01 12:10:00", "A_PREPARER", 0.00)
+	, (8, null, 1, "2023-08-01 12:35:00", "A_PREPARER", 0.00)
 ;
 
 INSERT INTO OrderItems VALUES

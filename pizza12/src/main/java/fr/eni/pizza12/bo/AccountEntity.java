@@ -1,9 +1,6 @@
 package fr.eni.pizza12.bo;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import fr.eni.pizza12.utils.Constants;
 
 public class AccountEntity {
 
@@ -28,25 +25,6 @@ public class AccountEntity {
     this.accountMail = accountMail;
     this.accountPhone = accountPhone;
   }
-
-  /*
-   * public AccountEntity(int accountId, String accountLastName, String
-   * accountFirstName, String accountDateOfBirth,
-   * String accountDateOfCreation, String accountMail, String accountPhone) {
-   * 
-   * DateTimeFormatter formatter =
-   * DateTimeFormatter.ofPattern(Constants.LOCALDATE_WITHOUT_TIME_PATTERN);
-   * this.accountId = accountId;
-   * this.accountLastName = accountLastName;
-   * this.accountFirstName = accountFirstName;
-   * this.accountDateOfBirth = LocalDate.parse(accountDateOfBirth, formatter);
-   * this.accountDateOfCreation = LocalDate.parse(accountDateOfCreation,
-   * formatter);
-   * this.accountMail = accountMail;
-   * this.accountPhone = accountPhone;
-   * 
-   * }
-   */
 
   public int getAccountId() {
     return this.accountId;

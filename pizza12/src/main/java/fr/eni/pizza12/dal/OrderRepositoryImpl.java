@@ -96,7 +96,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     sql.append(" FROM orders o");
     sql.append(" INNER JOIN Accounts a ON o.orderAccountId = a.accountId");
     sql.append(" WHERE orderStatus = 'A_PREPARER'");
-    sql.append(" ORDER BY orderId");
+    sql.append(" ORDER BY orderScheduledDeliveryTime;");
     sql.append(";");
 
     return jdbcTemplate.query(sql.toString(), new OrderRowMapper());
