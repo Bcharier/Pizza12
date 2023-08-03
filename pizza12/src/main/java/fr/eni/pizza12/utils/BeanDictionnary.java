@@ -21,15 +21,13 @@ public class BeanDictionnary {
     return new MathUtils();
   }
 
-  }
-
   @Bean
   public CartHelper cartHelper() {
     return new CartHelper();
+  }
 
   @Bean
   public OrderListHelper orderListHelper() {
     return new OrderListHelper();
   }
-
 }

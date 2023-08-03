@@ -8,27 +8,18 @@ import fr.eni.pizza12.bo.ProductEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-<<<<<<< HEAD
-import org.springframework.http.MediaType;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
->>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import fr.eni.pizza12.bo.AccountEntity;
-import fr.eni.pizza12.bo.OrderEntity;
 import fr.eni.pizza12.bo.OrderItemEntity;
-import fr.eni.pizza12.bo.OrderStates;
+import fr.eni.pizza12.bo.OrderStatus;
+import fr.eni.pizza12.dal.AccountRepository;
 import fr.eni.pizza12.dal.OrderItemRepository;
-import fr.eni.pizza12.dal.OrderRepository;
 
 @Controller
 public class MappingController {
@@ -36,31 +27,22 @@ public class MappingController {
     private OrderRepository orderRepository;
     private OrderItemRepository orderItemRepository;
     private ProductRepository productRepository;
+    private AccountRepository accountRepository;
+    private OrderService orderService;
 
-<<<<<<< HEAD
     public MappingController(ProductRepository productRepository, OrderRepository orderRepository,
-            OrderItemRepository orderItemRepository) {
+            OrderItemRepository orderItemRepository, AccountRepository accountRepository, OrderService orderService) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
+        this.accountRepository = accountRepository;
+        this.orderService = orderService;
     }
 
     @GetMapping("/")
     public String showMenu(Model model) {
         List<ProductEntity> menu;
         menu = productRepository.getAllProductsAndCategories();
-=======
-  @Autowired
-  private OrderService orderService;
-
-  public MappingController(ProductRepository productRepository) {
-    this.productRepository = productRepository;
-  }
-
-  @GetMapping("/")
-  public String helloPizza12(Model model) {
-    List<ProductEntity> menu = productRepository.getAllProductsAndCategories();
->>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
 
         List<String> categories = new ArrayList<>();
 
@@ -78,20 +60,20 @@ public class MappingController {
     @PostMapping("/addItemToCart")
     public String addProductToCart(@RequestBody DTO variables, Model model) {
         ProductEntity product = productRepository.getProductById(variables.getProductId());
+        AccountEntity account = accountRepository.getAccountbyId(variables.getAccountId());
         int itemsInCart = 0;
 
         if (orderRepository.getOrderByAccountIdAndByOrderState(variables.getAccountId(),
-                OrderStates.EN_ATTENTE)
+                OrderStatus.EN_ATTENTE)
                 .isEmpty()) {
 
-            OrderEntity order = new OrderEntity(21, 0, null, OrderStates.EN_ATTENTE,
-                    variables.getAccountId());
+            OrderEntity order = new OrderEntity(22, 0, null, OrderStatus.EN_ATTENTE,
+                    account);
 
             orderRepository.addOrder(order);
 
-<<<<<<< HEAD
             OrderItemEntity orderItemEntity = new OrderItemEntity(order.getOrderId(),
-                    product.getProductId(), 1, null);
+                    product, 1, null);
 
             orderItemRepository.addOrderItem(orderItemEntity);
 
@@ -99,15 +81,15 @@ public class MappingController {
         } else {
             OrderEntity order = orderRepository
                     .getOrderByAccountIdAndByOrderState(variables.getAccountId(),
-                            OrderStates.EN_ATTENTE)
+                            OrderStatus.EN_ATTENTE)
                     .get(0);
 
             OrderItemEntity orderItemEntity = new OrderItemEntity(order.getOrderId(),
-                    product.getProductId(), 1, null);
+                    product, 1, null);
 
             orderItemRepository.addOrderItem(orderItemEntity);
 
-            itemsInCart = order.getOrderItems().size();
+            // itemsInCart = order.getOrderItems().size();
         }
 
         model.addAttribute("itemsInCart", itemsInCart);
@@ -133,7 +115,7 @@ public class MappingController {
     public String openCart(Model model) {
         CartHelper cartHelper = new CartHelper();
 
-        List<OrderEntity> orderEntity = orderRepository.getOrderByAccountId(1);
+        List<OrderEntity> orderEntity = orderRepository.getOrderByAccountId(2);
 
         List<OrderEntity> listActiveOrders = cartHelper.filterOngoingOrders(orderEntity);
 
@@ -148,7 +130,7 @@ public class MappingController {
         List<ProductEntity> listProductsInOrder = new ArrayList<>();
 
         for (OrderItemEntity orderItem : orderItemEntity) {
-            ProductEntity productEntity = productRepository.getProductById(orderItem.getOrderItemId());
+            ProductEntity productEntity = productRepository.getProductById(orderItem.getOrderItem().getProductId());
             listProductsInOrder.add(productEntity);
         }
 
@@ -177,20 +159,9 @@ public class MappingController {
     }
 
     @GetMapping("/listOrders")
-    public String listOrders() {
+    public String listOrders(Model model) {
+        List<OrderEntity> orderList = orderService.getAllPendingOrdersAndAssociatedOrderItems();
+        model.addAttribute("orderList", orderList);
         return "listOrders";
     }
-=======
-  @GetMapping("/listOrders")
-  public String listOrders(Model model) {
-    List<OrderEntity> orderList = orderService.getAllPendingOrdersAndAssociatedOrderItems();
-    model.addAttribute("orderList", orderList);
-    return "listOrders";
-  }
-
-  @GetMapping("orderTool")
-  public String orderTool() {
-    return "orderTool";
-  }
->>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
 }

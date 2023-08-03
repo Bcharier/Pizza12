@@ -37,7 +37,7 @@ public class AccountRepositoryImpl implements AccountRepository {
       accountEntity.setAccountFirstName(rs.getString("accountFirstName"));
       accountEntity.setAccountLastName(rs.getString("accountLastName"));
       accountEntity.setAccountDateOfBirth(rs.getDate("accountDateOfBirth").toLocalDate());
-      accountEntity.setAccountDateOfCreation(rs.getDate("accountDateOfCreation").toLocalDate());
+      accountEntity.setAccountDateOfCreation(rs.getDate("accountCreationDate").toLocalDate());
       accountEntity.setAccountMail(rs.getString("accountMail"));
       accountEntity.setAccountPhone(rs.getString("accountPhone"));
       return accountEntity;
