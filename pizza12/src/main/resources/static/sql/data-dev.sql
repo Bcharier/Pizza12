@@ -80,10 +80,10 @@ INSERT INTO Products VALUES
 	, (26, "Chianti", 5.00, TRUE, 4, 1)
 	, (27, "Suppli", 2.40, TRUE, 2, 1)
 	, (28, "Arancini", 2.00, TRUE, 2, 1)
-	, (29, 'Salade tomate & Mozzarella', 5, 1, 1, 1)
-	, (30, 'Camembert di Buffala roti', 5, 1, 1, 1)
-	, (31, 'Assiette de Coppa & fromages', 5, 1, 1, 1)
-	, (32, 'Pain persillée à partager', 5, 1, 1, 1)
+	, (29, "Salade tomate & Mozzarella", 5, 1, 1, 1)
+	, (30, "Camembert di Buffala roti", 5, 1, 1, 1)
+	, (31, "Assiette de Coppa & fromages", 5, 1, 1, 1)
+	, (32, "Pain persillée à partager", 5, 1, 1, 1)
 ;
 
 ;

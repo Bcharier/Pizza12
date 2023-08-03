@@ -52,7 +52,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
 
   @Override
   public List<OrderItemEntity> getOrderItemByOrderId(int id) {
-    String sql = "SELECT * FROM orderItems oI INNER JOIN Products p ON oI.orderItemId = p.productId WHERE orderId = ?";
+    String sql = "SELECT * FROM orderItems oI INNER JOIN Products p ON oI.orderItemId = p.productId WHERE orderId = ? ORDER BY p.categoryId";
 
     return jdbcTemplate.query(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
