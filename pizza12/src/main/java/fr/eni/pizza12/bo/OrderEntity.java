@@ -18,7 +18,7 @@ public class OrderEntity {
 
   public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState,
       AccountEntity account,
-      ArrayList<OrderItemEntity> itemList) {
+      List<OrderItemEntity> itemList) {
     this.orderId = orderId;
     this.tableNumber = tableNumber;
     this.deliveryTime = deliveryTime;
@@ -29,7 +29,7 @@ public class OrderEntity {
 
   public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState,
       AccountEntity account) {
-    this(orderId, tableNumber, deliveryTime, orderState, account, new ArrayList<OrderItemEntity>());
+    this(orderId, tableNumber, deliveryTime, orderState, account, new ArrayList<>());
   }
 
   public int getOrderId() {
@@ -82,6 +82,18 @@ public class OrderEntity {
 
   public void setOrderItems(List<OrderItemEntity> orderItems) {
     this.orderItems = orderItems;
+  }
+
+  @Override
+  public String toString() {
+    return "{" +
+        " orderId='" + getOrderId() + "'" +
+        ", tableNumber='" + getTableNumber() + "'" +
+        ", deliveryTime='" + getDeliveryTime() + "'" +
+        ", orderState='" + getOrderState() + "'" +
+        ", account='" + getAccount() + "'" +
+        ", orderItems='" + getOrderItems() + "'" +
+        "}";
   }
 
 }

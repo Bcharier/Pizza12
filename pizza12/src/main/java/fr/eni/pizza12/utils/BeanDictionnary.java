@@ -30,5 +30,4 @@ public class BeanDictionnary {
   public OrderListHelper orderListHelper() {
     return new OrderListHelper();
   }
-
 }

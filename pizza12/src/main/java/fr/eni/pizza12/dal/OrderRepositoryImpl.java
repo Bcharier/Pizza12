@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,9 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import fr.eni.pizza12.bo.AccountEntity;
 import fr.eni.pizza12.bo.OrderEntity;
-import fr.eni.pizza12.bo.OrderItemEntity;
 import fr.eni.pizza12.bo.OrderStatus;
-import fr.eni.pizza12.utils.Constants;
 
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
@@ -55,14 +52,14 @@ public class OrderRepositoryImpl implements OrderRepository {
 
   @Override
   public List<OrderEntity> getAllOrders() {
-    String sql = "SELECT * FROM orders";
+    String sql = "SELECT * FROM orders o INNER JOIN Accounts a ON o.orderAccountId = a.accountId";
 
     return jdbcTemplate.query(sql, new OrderRowMapper());
   }
 
   @Override
   public List<OrderEntity> getOrderByAccountId(int accountId) {
-    String sql = "SELECT * FROM orders o INNER JOIN accounts a ON o.orderAccountId = a.accountId WHERE orderAccountId = ?";
+    String sql = "SELECT * FROM orders o INNER JOIN Accounts a ON o.orderAccountId = a.accountId WHERE orderAccountId = ?";
 
     return jdbcTemplate.query(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -135,7 +132,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
   @Override
   public List<OrderEntity> getOrderByAccountIdAndByOrderState(int accountId, OrderStatus orderState) {
-    String sql = "SELECT * FROM orders WHERE orderAccountId = ? AND orderStatus = ?";
+    String sql = "SELECT * FROM orders o INNER JOIN Accounts a ON o.orderAccountId = a.accountId WHERE orderAccountId = ? AND orderStatus = ?";
 
     return jdbcTemplate.query(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -155,5 +152,16 @@ public class OrderRepositoryImpl implements OrderRepository {
     sql.append(";");
 
     return jdbcTemplate.query(sql.toString(), new OrderRowMapper());
+  }
+
+  @Override
+  public OrderEntity getOrderByOrderId(int orderId) {
+    String sql = "SELECT * FROM orders o INNER JOIN accounts a ON o.orderAccountId = a.accountId WHERE orderId = ?";
+
+    return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, orderId);
+      }
+    }, new OrderRowMapper()).get(0);
   }
 }

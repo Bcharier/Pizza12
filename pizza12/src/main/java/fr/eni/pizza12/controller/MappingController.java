@@ -8,7 +8,6 @@ import fr.eni.pizza12.bo.ProductEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,12 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.eni.pizza12.bo.AccountEntity;
-import fr.eni.pizza12.bo.OrderEntity;
 import fr.eni.pizza12.bo.OrderItemEntity;
+import fr.eni.pizza12.bo.OrderItemsStatus;
 import fr.eni.pizza12.bo.OrderStatus;
 import fr.eni.pizza12.dal.AccountRepository;
 import fr.eni.pizza12.dal.OrderItemRepository;
-import fr.eni.pizza12.dal.OrderRepository;
 
 @Controller
 public class MappingController {
@@ -68,7 +65,7 @@ public class MappingController {
   }
 
   @PostMapping("/addItemToCart")
-  public String addProductToCart(@RequestBody DTO variables, Model model) {
+  public String addProductToCart(@RequestBody DTOCart variables, Model model) {
     ProductEntity product = productRepository.getProductById(variables.getProductId());
     AccountEntity account = accountRepository.getAccountbyId(variables.getAccountId());
     int itemsInCart = 0;
@@ -77,7 +74,7 @@ public class MappingController {
         OrderStatus.EN_ATTENTE)
         .isEmpty()) {
 
-      OrderEntity order = new OrderEntity(21, 0, null, OrderStatus.EN_ATTENTE,
+      OrderEntity order = new OrderEntity(22, 0, null, OrderStatus.EN_ATTENTE,
           account);
 
       orderRepository.addOrder(order);
@@ -99,7 +96,7 @@ public class MappingController {
 
       orderItemRepository.addOrderItem(orderItemEntity);
 
-      itemsInCart = order.getOrderItems().size();
+      // itemsInCart = order.getOrderItems().size();
     }
 
     model.addAttribute("itemsInCart", itemsInCart);
@@ -125,7 +122,7 @@ public class MappingController {
   public String openCart(Model model) {
     CartHelper cartHelper = new CartHelper();
 
-    List<OrderEntity> orderEntity = orderRepository.getOrderByAccountId(1);
+    List<OrderEntity> orderEntity = orderRepository.getOrderByAccountId(2);
 
     List<OrderEntity> listActiveOrders = cartHelper.filterOngoingOrders(orderEntity);
 
@@ -158,6 +155,15 @@ public class MappingController {
     return "cart";
   }
 
+  @PostMapping("/orderItemStatusUpdate")
+  public String orderItemStatusUpdate(@RequestBody DTOListOrders variables, Model model) {
+
+    orderItemRepository.updateOrderItemByOrderIdAndOrderItemCategory(variables.getOrderId(),
+        variables.getOrderItemCategory(), OrderItemsStatus.PRETE);
+
+    return "listOrders";
+  }
+
   @GetMapping("/login")
   public String login() {
 
@@ -182,4 +188,5 @@ public class MappingController {
     model.addAttribute("orderList", orderList);
     return "listOrders";
   }
+
 }

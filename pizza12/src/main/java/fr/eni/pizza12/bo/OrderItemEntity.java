@@ -5,17 +5,17 @@ public class OrderItemEntity {
   private int orderId;
   private ProductEntity orderItem;
   private int orderItemQuantity;
-  private OrderItemsStatus OrderItemsStatus;
+  private OrderItemsStatus orderItemsStatus;
 
   public OrderItemEntity() {
   }
 
   public OrderItemEntity(int orderId, ProductEntity orderItem, int orderItemQuantity,
-      OrderItemsStatus OrderItemsStatus) {
+      OrderItemsStatus orderItemsStatus) {
     this.orderId = orderId;
     this.orderItem = orderItem;
     this.orderItemQuantity = orderItemQuantity;
-    this.OrderItemsStatus = OrderItemsStatus;
+    this.orderItemsStatus = orderItemsStatus;
   }
 
   public int getOrderId() {
@@ -43,11 +43,11 @@ public class OrderItemEntity {
   }
 
   public OrderItemsStatus getOrderItemsStatus() {
-    return this.OrderItemsStatus;
+    return this.orderItemsStatus;
   }
 
-  public void setOrderItemsStatus(OrderItemsStatus OrderItemsStatus) {
-    this.OrderItemsStatus = OrderItemsStatus;
+  public void setOrderItemsStatus(OrderItemsStatus orderItemsStatus) {
+    this.orderItemsStatus = orderItemsStatus;
   }
 
   @Override
@@ -56,7 +56,7 @@ public class OrderItemEntity {
         " orderId='" + getOrderId() + "'" +
         ", orderItemId='" + getOrderItem() + "'" +
         ", orderItemQuantity='" + getOrderItemQuantity() + "'" +
-        ", OrderItemsStatus='" + getOrderItemsStatus() + "'" +
+        ", orderItemsStatus='" + getOrderItemsStatus() + "'" +
         "}";
   }
 

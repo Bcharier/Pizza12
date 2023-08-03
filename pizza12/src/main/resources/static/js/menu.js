@@ -28,7 +28,7 @@ addIcons.forEach(e => {
 
 async function addItemToCart(e) {
     let productId = e.id;
-    let accountId = 1;
+    let accountId = 2;
 
     let dataToSend = {
         productId: productId,

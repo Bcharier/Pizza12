@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import fr.eni.pizza12.bo.CategoryEntity;
 import fr.eni.pizza12.bo.OrderItemEntity;
 import fr.eni.pizza12.bo.OrderItemsStatus;
+import fr.eni.pizza12.bo.OrderStatus;
 import fr.eni.pizza12.bo.ProductEntity;
 
 @Repository
@@ -32,7 +33,8 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
       OrderItemEntity orderItemEntity = new OrderItemEntity();
       orderItemEntity.setOrderId(rs.getInt("orderId"));
       orderItemEntity.setOrderItem(new ProductEntity(rs.getInt("productId"), rs.getString("productName"),
-          rs.getBigDecimal("productPrice"), rs.getBoolean("isActive"), new CategoryEntity()));
+          rs.getBigDecimal("productPrice"), rs.getBoolean("isActive"),
+          new CategoryEntity(rs.getInt("categoryId"), rs.getString("categoryName"), rs.getInt("categoryOrder"))));
       orderItemEntity.setOrderItemQuantity(rs.getInt("orderItemQuantity"));
       if (Objects.isNull(rs.getString("orderItemStatus"))) {
         orderItemEntity.setOrderItemsStatus(null);
@@ -52,7 +54,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
 
   @Override
   public List<OrderItemEntity> getOrderItemByOrderId(int id) {
-    String sql = "SELECT * FROM orderItems oI INNER JOIN Products p ON oI.orderItemId = p.productId WHERE orderId = ? ORDER BY p.categoryId";
+    String sql = "SELECT * FROM orderItems oI INNER JOIN Products p ON oI.orderItemId = p.productId INNER JOIN Categories c ON p.categoryId = c.categoryId WHERE orderId = ?";
 
     return jdbcTemplate.query(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -111,6 +113,20 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
         preparedStatement.setInt(2, orderItemEntity.getOrderItem().getProductId());
         preparedStatement.setInt(3, orderItemEntity.getOrderItemQuantity());
         preparedStatement.setString(4, orderItemEntity.getOrderItemsStatus().name());
+      }
+    });
+  }
+
+  @Override
+  public void updateOrderItemByOrderIdAndOrderItemCategory(int orderId, int orderItemCategory,
+      OrderItemsStatus orderItemStatus) {
+    String sql = "UPDATE orderItems SET orderItemStatus = ? WHERE orderItemId IN (SELECT productId FROM products WHERE categoryId = ?) AND orderId = ?;";
+
+    jdbcTemplate.update(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, orderItemStatus.name());
+        preparedStatement.setInt(2, orderItemCategory);
+        preparedStatement.setInt(3, orderId);
       }
     });
   }

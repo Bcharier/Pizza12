@@ -9,6 +9,8 @@ public interface OrderRepository {
 
   public List<OrderEntity> getAllOrders();
 
+  public OrderEntity getOrderByOrderId(int orderId);
+
   public List<OrderEntity> getOrderByAccountId(int accountId);
 
   public List<OrderEntity> getOrderByTableNumber(int tableNumber);

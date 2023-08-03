@@ -8,14 +8,14 @@ public enum OrderStatus {
   LIVREE("Livrée");
 
   private final String name;
+  private static final OrderStatus[] states = values();
 
   private OrderStatus(String s) {
     name = s;
   }
 
   public boolean equalsName(String otherName) {
-    // (otherName == null) check is not needed because name.equals(null) returns
-    // false
+
     return name.equals(otherName);
   }
 
@@ -23,4 +23,7 @@ public enum OrderStatus {
     return this.name;
   }
 
+  public OrderStatus next() {
+    return states[(this.ordinal() + 1) % states.length];
+  }
 }

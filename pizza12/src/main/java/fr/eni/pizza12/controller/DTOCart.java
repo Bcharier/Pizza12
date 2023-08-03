@@ -1,6 +1,6 @@
 package fr.eni.pizza12.controller;
 
-public class DTO {
+public class DTOCart {
 
     private int accountId;
     private int productId;
