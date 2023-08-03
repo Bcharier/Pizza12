@@ -16,7 +16,7 @@ public class OrderEntity {
   public OrderEntity() {
   }
 
- public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState,
+  public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState,
       AccountEntity account,
       ArrayList<OrderItemEntity> itemList) {
     this.orderId = orderId;
@@ -83,7 +83,5 @@ public class OrderEntity {
   public void setOrderItems(List<OrderItemEntity> orderItems) {
     this.orderItems = orderItems;
   }
-
-}
 
 }

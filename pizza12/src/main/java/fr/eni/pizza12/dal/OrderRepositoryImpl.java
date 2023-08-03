@@ -37,23 +37,17 @@ public class OrderRepositoryImpl implements OrderRepository {
       OrderEntity orderEntity = new OrderEntity();
       orderEntity.setOrderId(rs.getInt("orderId"));
       orderEntity.setTableNumber(rs.getInt("orderTableNum"));
-<<<<<<< HEAD
-      orderEntity.setAccountId(rs.getInt("orderAccountId"));
-      if (Objects.isNull(rs.getTime("orderScheduledDeliveryTime"))) {
-        orderEntity.setDeliveryTime(null);
-      } else {
-        orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
-      }
-      orderEntity.setOrderState(OrderStates.valueOf(rs.getString("orderStatus")));
-=======
       orderEntity.setAccount(new AccountEntity(
           rs.getInt("orderAccountId"), rs.getString("accountLastName"), rs.getString("accountFirstName"),
           rs.getDate("accountDateOfBirth").toLocalDate(), rs.getDate("accountCreationDate").toLocalDate(),
           rs.getString("accountMail"),
           rs.getString("accountPhone")));
-      orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
+      if (Objects.isNull(rs.getTime("orderScheduledDeliveryTime"))) {
+        orderEntity.setDeliveryTime(null);
+      } else {
+        orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
+      }
       orderEntity.setOrderState(OrderStatus.valueOf(rs.getString("orderStatus")));
->>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
 
       return orderEntity;
     }
@@ -85,17 +79,12 @@ public class OrderRepositoryImpl implements OrderRepository {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, orderEntity.getOrderId());
         preparedStatement.setInt(2, orderEntity.getTableNumber());
-<<<<<<< HEAD
-        preparedStatement.setInt(3, orderEntity.getAccountId());
+        preparedStatement.setInt(3, orderEntity.getAccount().getAccountId());
         if (Objects.isNull(orderEntity.getDeliveryTime())) {
           preparedStatement.setTime(4, null);
         } else {
           preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
         }
-=======
-        preparedStatement.setInt(3, orderEntity.getAccount().getAccountId());
-        preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
->>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
         preparedStatement.setString(5, orderEntity.getOrderState().name());
         preparedStatement.setInt(6, 0);
       }
@@ -110,24 +99,18 @@ public class OrderRepositoryImpl implements OrderRepository {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, orderEntity.getOrderId());
         preparedStatement.setInt(2, orderEntity.getTableNumber());
-<<<<<<< HEAD
-        preparedStatement.setInt(3, orderEntity.getAccountId());
+        preparedStatement.setInt(3, orderEntity.getAccount().getAccountId());
         if (Objects.isNull(orderEntity.getDeliveryTime())) {
           preparedStatement.setTime(4, null);
         } else {
           preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
         }
-=======
-        preparedStatement.setInt(3, orderEntity.getAccount().getAccountId());
-        preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
->>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
         preparedStatement.setString(5, orderEntity.getOrderState().name());
         preparedStatement.setInt(6, 0);
       }
     });
   }
 
-<<<<<<< HEAD
   @Override
   public List<OrderEntity> getOrderByTableNumber(int tableNumber) {
     String sql = "SELECT * FROM orders WHERE orderTableNum = ?";
@@ -140,7 +123,7 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public List<OrderEntity> getOrderByOrderState(OrderStates orderState) {
+  public List<OrderEntity> getOrderByOrderState(OrderStatus orderState) {
     String sql = "SELECT * FROM orders WHERE orderStatus = ?";
 
     return jdbcTemplate.query(sql, new PreparedStatementSetter() {
@@ -151,7 +134,7 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public List<OrderEntity> getOrderByAccountIdAndByOrderState(int accountId, OrderStates orderState) {
+  public List<OrderEntity> getOrderByAccountIdAndByOrderState(int accountId, OrderStatus orderState) {
     String sql = "SELECT * FROM orders WHERE orderAccountId = ? AND orderStatus = ?";
 
     return jdbcTemplate.query(sql, new PreparedStatementSetter() {
@@ -160,7 +143,8 @@ public class OrderRepositoryImpl implements OrderRepository {
         preparedStatement.setString(2, orderState.name());
       }
     }, new OrderRowMapper());
-=======
+  }
+
   public List<OrderEntity> getAllPendingOrders() {
     StringBuffer sql = new StringBuffer();
     sql.append(" SELECT *");
@@ -171,6 +155,5 @@ public class OrderRepositoryImpl implements OrderRepository {
     sql.append(";");
 
     return jdbcTemplate.query(sql.toString(), new OrderRowMapper());
->>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
   }
 }
