@@ -11,13 +11,14 @@
 		<div class="main-container">
 			<h1 class="main-title">Liste des commandes en cours</h1>
 			<div th:class="'order-stump '+ ${order.getOrderStateName()}" th:each="order : ${orderList}">
-				<div class="order-stump-header"> <!-- OnClick enroule/déroule la liste des items -->
+				<div class="order-stump-header"> <!-- OnClick enroule/déroule la liste des items (Le order-stump-content) -->
 					<div class="order-title" data-th-text="${@orderListHelper.displayOrderTitle(order)}" ></div>
 					<div class="order-time" data-th-text="${order.getDeliveryTime()}" ></div>
 					<div class="order-elements" data-th-text="'(' + ${@orderListHelper.getRemainingItemCount(order)} + '/'+ ${@orderListHelper.getNonCancelledItemCount(order)} +' éléments restant' + ${@orderListHelper.getItemToDeliverCount(order)} + ${@orderListHelper.getCancelledItemCount(order)} + ')'" ></div>
-					<div class="order-cancel"><img src="/pictos/icon_cancel.png" alt="ANNULER LA COMMANDE" title="ANNULER LA COMMANDE" /></div>
+					
 				</div>
 				<div class="order-stump-content">
+					<div class="general-order-actions"><img src="/pictos/icon_drink.png" />&nbsp;<img src="/pictos/icon_entree.png" />&nbsp;<img src="/pictos/icon_couverts.png" />&nbsp;<img src="/pictos/icon_cake.png" /><div class="order-cancel"><img src="/pictos/icon_cancel.png" alt="ANNULER LA COMMANDE" title="ANNULER LA COMMANDE" /></div></div>
 					<div th:class="'order-item ' + ${item.getOrderItemsStatus()}" th:each="item, iStat : ${order.getOrderItems()}">
 						<!-- Utiliser item.getOrderItem().getProductId() -->
 						<div class="order-item-quantity-decrease">-</div><div class="order-item-quantity"><th:block data-th-text="${item.getOrderItemQuantity()}" /> x </div><div class="order-item-quantity-increase">+</div>
