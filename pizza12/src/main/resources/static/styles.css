@@ -1,6 +1,7 @@
 @import 'utility.css';
 @import 'fragments.css';
 @import 'cart.css';
+@import 'orders.css';
 
 .main-container  {
     display: flex;

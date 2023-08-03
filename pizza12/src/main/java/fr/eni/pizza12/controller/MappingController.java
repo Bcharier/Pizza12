@@ -59,7 +59,7 @@ public class MappingController {
         ProductEntity product = productRepository.getProductById(variables.getProductId());
         int itemsInCart = 0;
 
-        if (!orderRepository.getOrderByAccountIdAndByOrderState(variables.getAccountId(),
+        if (orderRepository.getOrderByAccountIdAndByOrderState(variables.getAccountId(),
                 OrderStates.EN_ATTENTE)
                 .isEmpty()) {
 
@@ -91,9 +91,6 @@ public class MappingController {
         model.addAttribute("itemsInCart", itemsInCart);
         return "index";
     }
-
-    @PostMapping("/orderValidation")
-    public String orderValidation()
 
     @GetMapping("/designSystem")
     public String designSystem() {
@@ -137,6 +134,12 @@ public class MappingController {
 
         model.addAttribute("listProducts", listProductsInCart);
         model.addAttribute("order", listActiveOrders);
+
+        return "cart";
+    }
+
+    @PostMapping("/orderValidation")
+    public String orderValidation(OrderEntity orderEntity) {
 
         return "cart";
     }
