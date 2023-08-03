@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +15,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
+import fr.eni.pizza12.bo.AccountEntity;
 import fr.eni.pizza12.bo.OrderEntity;
-import fr.eni.pizza12.bo.OrderStates;
+import fr.eni.pizza12.bo.OrderItemEntity;
+import fr.eni.pizza12.bo.OrderStatus;
+import fr.eni.pizza12.utils.Constants;
 
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
@@ -29,9 +33,11 @@ public class OrderRepositoryImpl implements OrderRepository {
 
   private static class OrderRowMapper implements RowMapper<OrderEntity> {
     public OrderEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+
       OrderEntity orderEntity = new OrderEntity();
       orderEntity.setOrderId(rs.getInt("orderId"));
       orderEntity.setTableNumber(rs.getInt("orderTableNum"));
+<<<<<<< HEAD
       orderEntity.setAccountId(rs.getInt("orderAccountId"));
       if (Objects.isNull(rs.getTime("orderScheduledDeliveryTime"))) {
         orderEntity.setDeliveryTime(null);
@@ -39,6 +45,15 @@ public class OrderRepositoryImpl implements OrderRepository {
         orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
       }
       orderEntity.setOrderState(OrderStates.valueOf(rs.getString("orderStatus")));
+=======
+      orderEntity.setAccount(new AccountEntity(
+          rs.getInt("orderAccountId"), rs.getString("accountLastName"), rs.getString("accountFirstName"),
+          rs.getDate("accountDateOfBirth").toLocalDate(), rs.getDate("accountCreationDate").toLocalDate(),
+          rs.getString("accountMail"),
+          rs.getString("accountPhone")));
+      orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
+      orderEntity.setOrderState(OrderStatus.valueOf(rs.getString("orderStatus")));
+>>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
 
       return orderEntity;
     }
@@ -70,12 +85,17 @@ public class OrderRepositoryImpl implements OrderRepository {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, orderEntity.getOrderId());
         preparedStatement.setInt(2, orderEntity.getTableNumber());
+<<<<<<< HEAD
         preparedStatement.setInt(3, orderEntity.getAccountId());
         if (Objects.isNull(orderEntity.getDeliveryTime())) {
           preparedStatement.setTime(4, null);
         } else {
           preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
         }
+=======
+        preparedStatement.setInt(3, orderEntity.getAccount().getAccountId());
+        preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
+>>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
         preparedStatement.setString(5, orderEntity.getOrderState().name());
         preparedStatement.setInt(6, 0);
       }
@@ -90,18 +110,24 @@ public class OrderRepositoryImpl implements OrderRepository {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, orderEntity.getOrderId());
         preparedStatement.setInt(2, orderEntity.getTableNumber());
+<<<<<<< HEAD
         preparedStatement.setInt(3, orderEntity.getAccountId());
         if (Objects.isNull(orderEntity.getDeliveryTime())) {
           preparedStatement.setTime(4, null);
         } else {
           preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
         }
+=======
+        preparedStatement.setInt(3, orderEntity.getAccount().getAccountId());
+        preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
+>>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
         preparedStatement.setString(5, orderEntity.getOrderState().name());
         preparedStatement.setInt(6, 0);
       }
     });
   }
 
+<<<<<<< HEAD
   @Override
   public List<OrderEntity> getOrderByTableNumber(int tableNumber) {
     String sql = "SELECT * FROM orders WHERE orderTableNum = ?";
@@ -134,5 +160,17 @@ public class OrderRepositoryImpl implements OrderRepository {
         preparedStatement.setString(2, orderState.name());
       }
     }, new OrderRowMapper());
+=======
+  public List<OrderEntity> getAllPendingOrders() {
+    StringBuffer sql = new StringBuffer();
+    sql.append(" SELECT *");
+    sql.append(" FROM orders o");
+    sql.append(" INNER JOIN Accounts a ON o.orderAccountId = a.accountId");
+    sql.append(" WHERE orderStatus = 'A_PREPARER'");
+    sql.append(" ORDER BY orderScheduledDeliveryTime;");
+    sql.append(";");
+
+    return jdbcTemplate.query(sql.toString(), new OrderRowMapper());
+>>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
   }
 }

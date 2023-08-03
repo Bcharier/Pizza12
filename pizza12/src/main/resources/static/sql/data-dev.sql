@@ -1,3 +1,4 @@
+USE Pizza12;
 INSERT INTO Categories VALUES (1, "Entrées", 1), (2, "Plats", 2), (3, "Desserts", 3), (4, "Boissons", 4);
 
 INSERT INTO Accounts VALUES
@@ -68,7 +69,7 @@ INSERT INTO Products VALUES
 	, (15, "Glace arôme Vanille", 2.00, TRUE, 3, 1)
 	, (16, "Glace arôme Pistache", 2.00, TRUE, 3, 1)
 	, (17, "Glace à l'Italienne arôme Vanille de Madagascar", 2.00, TRUE, 3, 1)
-	, (18, "Glace à l'Italienne arôme Pistache de Californie", 2.00, TRUE, 3, 1)
+	, (18, "Glace à l'Italienne arôme Pistache de Bronte", 2.00, TRUE, 3, 1)
 	, (19, "Tiramisu", 2.00, TRUE, 3, 1)
 	, (20, "Panna cotta coulis Framboise", 2.00, TRUE, 3, 1)
 	, (21, "Bouquet d'Amaretti", 2.00, TRUE, 3, 1)
@@ -85,4 +86,33 @@ INSERT INTO Products VALUES
 	, (32, 'Pain persillée à partager', 5, 1, 1, 1)
 ;
 
+;
+
+INSERT INTO Orders VALUES
+	(1, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
+	, (2, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
+	, (3, 1, 1, "2023-08-01 12:00:00", "EN_ATTENTE", 0.00)
+	, (4, 1, 1, "2023-08-01 12:00:00", "PAYEE", 0.00)
+	, (5, 1, 1, "2023-08-01 12:00:00", "LIVREE", 0.00)
+	, (6, 1, 1, "2023-08-01 12:00:00", "ANNULEE", 0.00)
+	, (7, 1, 1, "2023-08-01 12:10:00", "A_PREPARER", 0.00)
+	, (8, null, 1, "2023-08-01 12:35:00", "A_PREPARER", 0.00)
+;
+
+INSERT INTO OrderItems VALUES
+	(1, 1, 2, "COMMANDEE")
+	, (1, 10, 2, "COMMANDEE")
+	, (2, 2, 2, "PREPAREE")
+	, (2, 9, 2, "PREPAREE")
+	, (3, 7, 2, "CUISSON")
+	, (3, 11, 2, "CUISSON")
+	, (4, 4, 2, "PRETE")
+	, (4, 10, 2, "PRETE")
+	, (5, 6, 2, "LIVREE")
+	, (5, 9, 2, "LIVREE")
+	, (6, 27, 20, "ANNULEE")
+	, (6, 18, 20, "ANNULEE")
+	, (7, 1, 3, "COMMANDEE")
+	, (7, 10, 3, "COMMANDEE")
+	
 ;

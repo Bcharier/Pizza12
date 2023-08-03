@@ -1,13 +1,21 @@
 package fr.eni.pizza12.controller;
 
+import fr.eni.pizza12.dal.OrderRepository;
 import fr.eni.pizza12.dal.ProductRepository;
+import fr.eni.pizza12.bll.OrderService;
+import fr.eni.pizza12.bo.OrderEntity;
 import fr.eni.pizza12.bo.ProductEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 import org.springframework.http.MediaType;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+>>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +37,7 @@ public class MappingController {
     private OrderItemRepository orderItemRepository;
     private ProductRepository productRepository;
 
+<<<<<<< HEAD
     public MappingController(ProductRepository productRepository, OrderRepository orderRepository,
             OrderItemRepository orderItemRepository) {
         this.productRepository = productRepository;
@@ -40,6 +49,18 @@ public class MappingController {
     public String showMenu(Model model) {
         List<ProductEntity> menu;
         menu = productRepository.getAllProductsAndCategories();
+=======
+  @Autowired
+  private OrderService orderService;
+
+  public MappingController(ProductRepository productRepository) {
+    this.productRepository = productRepository;
+  }
+
+  @GetMapping("/")
+  public String helloPizza12(Model model) {
+    List<ProductEntity> menu = productRepository.getAllProductsAndCategories();
+>>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
 
         List<String> categories = new ArrayList<>();
 
@@ -68,6 +89,7 @@ public class MappingController {
 
             orderRepository.addOrder(order);
 
+<<<<<<< HEAD
             OrderItemEntity orderItemEntity = new OrderItemEntity(order.getOrderId(),
                     product.getProductId(), 1, null);
 
@@ -158,4 +180,17 @@ public class MappingController {
     public String listOrders() {
         return "listOrders";
     }
+=======
+  @GetMapping("/listOrders")
+  public String listOrders(Model model) {
+    List<OrderEntity> orderList = orderService.getAllPendingOrdersAndAssociatedOrderItems();
+    model.addAttribute("orderList", orderList);
+    return "listOrders";
+  }
+
+  @GetMapping("orderTool")
+  public String orderTool() {
+    return "orderTool";
+  }
+>>>>>>> ae68196a4292a9db066ef9a31b01572c66c58268
 }

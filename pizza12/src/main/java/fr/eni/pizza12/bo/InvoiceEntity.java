@@ -2,21 +2,21 @@ package fr.eni.pizza12.bo;
 
 public class InvoiceEntity {
 
-    private int invoiceTotalPrice;
+  private int invoiceTotalPrice;
 
-    public InvoiceEntity() {
-    }
+  public InvoiceEntity() {
+  }
 
-    public InvoiceEntity(int invoiceTotalPrice) {
-        this.invoiceTotalPrice = invoiceTotalPrice;
-    }
+  public InvoiceEntity(int invoiceTotalPrice) {
+    this.invoiceTotalPrice = invoiceTotalPrice;
+  }
 
-    public int getInvoiceTotalPrice() {
-        return this.invoiceTotalPrice;
-    }
+  public int getInvoiceTotalPrice() {
+    return this.invoiceTotalPrice;
+  }
 
-    public void setInvoiceTotalPrice(int invoiceTotalPrice) {
-        this.invoiceTotalPrice = invoiceTotalPrice;
-    }
+  public void setInvoiceTotalPrice(int invoiceTotalPrice) {
+    this.invoiceTotalPrice = invoiceTotalPrice;
+  }
 
 }

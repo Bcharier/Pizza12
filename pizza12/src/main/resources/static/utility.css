@@ -1,23 +1,23 @@
 :root {
-    --primary-color: #bc2533;
-    --secondary-color: #fac607;
-    --valid-color: #008000;
-    --error-color: #FF0000;
-    --warning-color: #FFA500;
+  --primary-color: #bc2533;
+  --secondary-color: #fac607;
+  --valid-color: #008000;
+  --error-color: #FF0000;
+  --warning-color: #FFA500;
 }
 
 @font-face {
-    font-family: "Inter";
-    src: url(/font/Inter-VariableFont_slnt\,wght.ttf);
+  font-family: "Inter";
+  src: url(/font/Inter-VariableFont_slnt\,wght.ttf);
 }
 
 @font-face {
-    font-family: "Delicake";
-    src: url(/font/DeliCake.otf);
+  font-family: "Delicake";
+  src: url(/font/DeliCake.otf);
 }
 
 body, html {
-    font-family: "Inter", serif;
+  font-family: "Inter", serif;
 }
 
 ul, li {
@@ -28,107 +28,107 @@ ul, li {
 }
 
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .primary {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .secondary {
-    color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .valid {
-    color: var(--valid-color);
+  color: var(--valid-color);
 }
 
 .error {
-    color: var(--error-color);
+  color: var(--error-color);
 }
 
 .warning {
-    color: var(--warning-color);
+  color: var(--warning-color);
 }
 
 .primary-background {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 .secondary-background {
-    background-color: var(--secondary-color);
+  background-color: var(--secondary-color);
 }
 
 .valid-background {
-    background-color: var(--valid-color);
+  background-color: var(--valid-color);
 }
 
 .error-background {
-    background-color: var(--error-color);
+  background-color: var(--error-color);
 }
 
 .warning-background {
-    background-color: var(--warning-color);
+  background-color: var(--warning-color);
 }
 
 .img-primary {
-    filter: invert(20%) sepia(79%) saturate(2926%) hue-rotate(340deg) brightness(80%) contrast(92%);
+  filter: invert(20%) sepia(79%) saturate(2926%) hue-rotate(340deg) brightness(80%) contrast(92%);
 }
 
 .img-secondary {
-    filter: invert(69%) sepia(63%) saturate(658%) hue-rotate(359deg) brightness(106%) contrast(96%);
+  filter: invert(69%) sepia(63%) saturate(658%) hue-rotate(359deg) brightness(106%) contrast(96%);
 }
 
 .button {
-    width: fit-content;
-    padding: 0.5rem 2rem;
-    font-size: 1rem;
-    background-color: var(--primary-color);
-    border: none;
-    color: #fff;
-    border-radius: 0.6rem;
-    cursor: pointer;
+  width: fit-content;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+  border-radius: 0.6rem;
+  cursor: pointer;
 }
 
 .button-sm {
-    width: fit-content;
-    padding: 0.3rem 1.5rem;
-    font-size: 0.8rem;
-    background-color: var(--primary-color);
-    border: none;
-    color: #fff;
-    border-radius: 0.6rem;
-    cursor: pointer;
+  width: fit-content;
+  padding: 0.3rem 1.5rem;
+  font-size: 0.8rem;
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+  border-radius: 0.6rem;
+  cursor: pointer;
 
 }
 
 .button-l {
-    width: fit-content;
-    padding: 0.8rem 2.5rem;
-    font-size: 1.3rem;
-    background-color: var(--primary-color);
-    border: none;
-    color: #fff;
-    border-radius: 0.6rem;
-    cursor: pointer;
+  width: fit-content;
+  padding: 0.8rem 2.5rem;
+  font-size: 1.3rem;
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+  border-radius: 0.6rem;
+  cursor: pointer;
 }
 
 .button-xl {
-    width: fit-content;
-    padding: 1rem 3rem;
-    font-size: 1.5rem;
-    background-color: var(--primary-color);
-    border: none;
-    color: #fff;
-    border-radius: 0.6rem;
-    cursor: pointer;
+  width: fit-content;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+  border-radius: 0.6rem;
+  cursor: pointer;
 }
 
 .button:hover, .button-sm:hover, .button-l:hover, .button-xl:hover {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    transition: all 0.3s;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  transition: all 0.3s;
 }
 
 .navigation-container {
@@ -147,100 +147,100 @@ a {
 }
 
 .navigation-link:hover {
-    background-color: var(--secondary-color);
-    transition: all 0.2s;
+  background-color: var(--secondary-color);
+  transition: all 0.2s;
 }
 
 .active {
-    background-color: var(--primary-color);
-    color: #fff;
+  background-color: var(--primary-color);
+  color: #fff;
 }
 
 .main-title, .secondary-title, .small-title, .fancy-title {
-    font-size: 3rem;
-    display: flex;
-    margin: auto;
+  font-size: 3rem;
+  display: flex;
+  margin: auto;
 }
 
 .secondary-title {
-    font-size: 1.8rem;
+  font-size: 1.8rem;
 }
 
 .small-title {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .fancy-title {
-    font-family: "Delicake", "Inter", serif;
+  font-family: "Delicake", "Inter", serif;
 }
 
 .picto-sm {
-    width: 1.2rem;
-    height: 1.2rem;
-    cursor: pointer;
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
 }
 
 .picto {
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
 }
 
 .picto-l {
-    width: 3rem;
-    height: 3rem;
-    cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
 }
 
 .picto-xl {
-    width: 4rem;
-    height: 4rem;
-    cursor: pointer;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
 }
 
 .avatar {
-    border-radius: 50%;
-    object-position: center;
+  border-radius: 50%;
+  object-position: center;
 }
 
 .avatar-sm {
-    width: 2rem;
+  width: 2rem;
 }
 
 .avatar-m {
-    width: 4rem;
+  width: 4rem;
 }
 
 .avatar-l {
-    width: 6rem;
+  width: 6rem;
 }
 
 .avatar-xl {
-    width: 8rem;
+  width: 8rem;
 }
 
 .button-container, .title-container, .picto-container, .color-container, .avatar-container {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 5rem;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 5rem;
 }
 
 .color-container > div {
-    width: 5rem;
-    height: 3rem;
-    color: #fff;
-    text-align: center;
+  width: 5rem;
+  height: 3rem;
+  color: #fff;
+  text-align: center;
 }
 
 .title-container {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .picto-container > div, .avatar-container > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

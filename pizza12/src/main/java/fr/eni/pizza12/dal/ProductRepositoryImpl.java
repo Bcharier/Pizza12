@@ -35,7 +35,7 @@ public class ProductRepositoryImpl implements ProductRepository {
       ProductEntity productEntity = new ProductEntity();
       productEntity.setProductId(rs.getInt("productId"));
       productEntity.setProductName(rs.getString("productName"));
-      productEntity.setProductPrice(rs.getInt("productPrice"));
+      productEntity.setProductPrice(rs.getBigDecimal("productPrice"));
       productEntity.setProductActive(rs.getBoolean("isActive"));
       productEntity.setCategory(categoryRepositoryImpl.getCategoryById(rs.getInt("categoryId")));
       return productEntity;
@@ -94,7 +94,7 @@ public class ProductRepositoryImpl implements ProductRepository {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, productEntity.getProductId());
         preparedStatement.setString(2, productEntity.getProductName());
-        preparedStatement.setInt(3, productEntity.getProductPrice());
+        preparedStatement.setBigDecimal(3, productEntity.getProductPrice());
         preparedStatement.setBoolean(4, productEntity.isProductActive());
         preparedStatement.setInt(5, productEntity.getCategory().getCategoryId());
         preparedStatement.setInt(6, productEntity.getProductType().getProductTypeId());
@@ -143,7 +143,7 @@ public class ProductRepositoryImpl implements ProductRepository {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setInt(1, productEntity.getProductId());
         preparedStatement.setString(2, productEntity.getProductName());
-        preparedStatement.setInt(3, productEntity.getProductPrice());
+        preparedStatement.setBigDecimal(3, productEntity.getProductPrice());
         preparedStatement.setBoolean(4, productEntity.getProductActive());
         preparedStatement.setInt(5, productEntity.getCategory().getCategoryId());
         preparedStatement.setInt(6, productEntity.getProductType().getProductTypeId());
