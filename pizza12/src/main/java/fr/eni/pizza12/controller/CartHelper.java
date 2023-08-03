@@ -8,21 +8,23 @@ import fr.eni.pizza12.bo.CategoryEntity;
 import fr.eni.pizza12.bo.OrderEntity;
 import fr.eni.pizza12.bo.OrderItemEntity;
 import fr.eni.pizza12.bo.OrderStatus;
-import fr.eni.pizza12.bo.ProductEntitpublic lass CartHelper {
+import fr.eni.pizza12.bo.ProductEntity;
+
+public class CartHelper {
 
     public List<ProductEntity> generateOrderList(List<OrderItemEntity> listOrderItems,
             List<ProductEntity> listProducts) {
         List<ProductEntity> listFinalProducts = new ArrayList<>();
 
-        for (OrderItemEntity orderItem : listOr
-        int productId = orderItem.getOrderItem().getProductId();
+        for (OrderItemEntity orderItem : listOrderItems) {
+            int productId = orderItem.getOrderItem().getProductId();
             int productQuantity = orderItem.getOrderItemQuantity();
 
             for (ProductEntity product : listProducts) {
                 int productIdInList = product.getProductId();
                 if (productId == productIdInList) {
-                    String productName = product.getProd
-                BigDecimal productPrice = product.getProductPrice();
+                    String productName = product.getProductName();
+                    BigDecimal productPrice = product.getProductPrice();
                     CategoryEntity productCategory = product.getCategory();
                     boolean productActive = product.getProductActive();
                     int productOrderId = orderItem.getOrderId();
