@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import fr.eni.pizza12.bo.AccountEntity;
 import fr.eni.pizza12.bo.OrderItemEntity;
+import fr.eni.pizza12.bo.OrderItemsStatus;
 import fr.eni.pizza12.bo.OrderStatus;
 import fr.eni.pizza12.dal.AccountRepository;
 import fr.eni.pizza12.dal.OrderItemRepository;
@@ -58,7 +59,7 @@ public class MappingController {
     }
 
     @PostMapping("/addItemToCart")
-    public String addProductToCart(@RequestBody DTO variables, Model model) {
+    public String addProductToCart(@RequestBody DTOCart variables, Model model) {
         ProductEntity product = productRepository.getProductById(variables.getProductId());
         AccountEntity account = accountRepository.getAccountbyId(variables.getAccountId());
         int itemsInCart = 0;
@@ -146,6 +147,15 @@ public class MappingController {
     public String orderValidation(OrderEntity orderEntity) {
 
         return "cart";
+    }
+
+    @PostMapping("/orderItemStatusUpdate")
+    public String orderItemStatusUpdate(@RequestBody DTOListOrders variables, Model model) {
+
+        orderItemRepository.updateOrderItemByOrderIdAndOrderItemCategory(variables.getOrderId(),
+                variables.getOrderItemCategory(), OrderItemsStatus.PRETE);
+
+        return "listOrders";
     }
 
     @GetMapping("/login")

@@ -160,6 +160,7 @@ a {
   font-size: 3rem;
   display: flex;
   margin: auto;
+  font-weight: 700;
 }
 
 .secondary-title {

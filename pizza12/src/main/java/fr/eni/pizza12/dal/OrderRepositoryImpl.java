@@ -153,4 +153,15 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     return jdbcTemplate.query(sql.toString(), new OrderRowMapper());
   }
+
+  @Override
+  public OrderEntity getOrderByOrderId(int orderId) {
+    String sql = "SELECT * FROM orders o INNER JOIN accounts a ON o.orderAccountId = a.accountId WHERE orderId = ?";
+
+    return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+      public void setValues(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, orderId);
+      }
+    }, new OrderRowMapper()).get(0);
+  }
 }

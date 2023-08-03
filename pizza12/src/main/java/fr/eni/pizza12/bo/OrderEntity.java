@@ -84,4 +84,16 @@ public class OrderEntity {
         this.orderItems = orderItems;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                " orderId='" + getOrderId() + "'" +
+                ", tableNumber='" + getTableNumber() + "'" +
+                ", deliveryTime='" + getDeliveryTime() + "'" +
+                ", orderState='" + getOrderState() + "'" +
+                ", account='" + getAccount() + "'" +
+                ", orderItems='" + getOrderItems() + "'" +
+                "}";
+    }
+
 }

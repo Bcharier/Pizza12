@@ -1,0 +1,97 @@
+/* .order-item:nth-child(odd) {
+    background-color: lightgrey;
+} */
+
+
+.order-stump {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: center;
+    align-items: baseline;
+    margin: 2rem 0;
+
+}
+
+.order-stump-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 0;
+}
+
+.order-title-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-cancel {
+    position: absolute;
+    right: 5rem;
+}
+
+.order-stump-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 1rem 0;
+}
+
+.general-order-actions {
+    width: 50%;
+    margin: 1rem auto;
+    display: flex;
+    gap: 0 0.5rem;
+    align-items: center;
+    justify-content: center ;
+}
+
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.order-item > * {
+    width: fit-content;
+}
+
+.quantity-management-container {
+    width: 8rem;
+    display: flex;
+    gap: 0 1rem;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.order-item-quantity {
+    font-size: 1.5rem;
+}
+
+.order-item-quantity-change:hover, .order-item-delete:hover, .order-cancel:hover {
+    filter: invert(82%) sepia(57%) saturate(2594%) hue-rotate(359deg) brightness(103%) contrast(96%);
+    transition: all 0.1s;
+}
+
+.order-item-name {
+    width: 15rem;
+    text-align: center;
+}
+
+.greyed {
+    background-color: #cdcdcd;
+    transition: all 0.3s;
+}
+
+.yellowed {
+    background-color: var(--secondary-color);
+    transition: all 0.2s;
+}
