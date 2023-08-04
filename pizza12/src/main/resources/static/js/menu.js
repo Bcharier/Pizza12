@@ -8,6 +8,9 @@ navigationLinks.forEach(e => {
 function showMenuCategory(e) {
     let clickedElement = e
     let targetElement = document.querySelector("." + e.innerText)
+    navigationLinks.forEach(e => {
+        e.classList.remove("active")
+    })
     if (clickedElement.innerText === 'Tout') {
         menuCategories.forEach(e => {
             e.style.display = "inline-block";
@@ -18,6 +21,7 @@ function showMenuCategory(e) {
         })
         targetElement.style.display = "inline-block"
     }
+    clickedElement.classList.add("active");
 }
 
 const addIcons = document.querySelectorAll('.product-add-icon');

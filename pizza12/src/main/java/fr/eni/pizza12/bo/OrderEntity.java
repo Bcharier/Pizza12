@@ -1,6 +1,6 @@
 package fr.eni.pizza12.bo;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class OrderEntity {
 
     private int orderId;
     private int tableNumber;
-    private LocalTime deliveryTime;
+    private LocalDateTime deliveryTime;
     private OrderStatus orderState;
     private AccountEntity account;
     private List<OrderItemEntity> orderItems;
@@ -16,7 +16,7 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState,
+    public OrderEntity(int orderId, int tableNumber, LocalDateTime deliveryTime, OrderStatus orderState,
             AccountEntity account,
             List<OrderItemEntity> itemList) {
         this.orderId = orderId;
@@ -27,7 +27,7 @@ public class OrderEntity {
         this.orderItems = itemList;
     }
 
-    public OrderEntity(int orderId, int tableNumber, LocalTime deliveryTime, OrderStatus orderState,
+    public OrderEntity(int orderId, int tableNumber, LocalDateTime deliveryTime, OrderStatus orderState,
             AccountEntity account) {
         this(orderId, tableNumber, deliveryTime, orderState, account, new ArrayList<>());
     }
@@ -48,11 +48,11 @@ public class OrderEntity {
         this.tableNumber = tableNumber;
     }
 
-    public LocalTime getDeliveryTime() {
+    public LocalDateTime getDeliveryTime() {
         return this.deliveryTime;
     }
 
-    public void setDeliveryTime(LocalTime deliveryTime) {
+    public void setDeliveryTime(LocalDateTime deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 

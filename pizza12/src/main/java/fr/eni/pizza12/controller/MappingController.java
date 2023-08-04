@@ -6,7 +6,13 @@ import fr.eni.pizza12.bll.OrderService;
 import fr.eni.pizza12.bo.OrderEntity;
 import fr.eni.pizza12.bo.ProductEntity;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -62,13 +68,13 @@ public class MappingController {
     public String addProductToCart(@RequestBody DTOCart variables, Model model) {
         ProductEntity product = productRepository.getProductById(variables.getProductId());
         AccountEntity account = accountRepository.getAccountbyId(variables.getAccountId());
-        int itemsInCart = 0;
+        List<ProductEntity> itemsInCart = new ArrayList<>();
 
         if (orderRepository.getOrderByAccountIdAndByOrderState(variables.getAccountId(),
                 OrderStatus.EN_ATTENTE)
                 .isEmpty()) {
 
-            OrderEntity order = new OrderEntity(22, 0, null, OrderStatus.EN_ATTENTE,
+            OrderEntity order = new OrderEntity(23, 0, null, OrderStatus.EN_ATTENTE,
                     account);
 
             orderRepository.addOrder(order);
@@ -77,8 +83,10 @@ public class MappingController {
                     product, 1, null);
 
             orderItemRepository.addOrderItem(orderItemEntity);
+            for (OrderItemEntity orderItem : orderItemRepository.getOrderItemByOrderId(order.getOrderId())) {
+                itemsInCart.add(orderItem.getOrderItem());
+            }
 
-            itemsInCart = 1;
         } else {
             OrderEntity order = orderRepository
                     .getOrderByAccountIdAndByOrderState(variables.getAccountId(),
@@ -90,9 +98,10 @@ public class MappingController {
 
             orderItemRepository.addOrderItem(orderItemEntity);
 
-            // itemsInCart = order.getOrderItems().size();
+            for (OrderItemEntity orderItem : orderItemRepository.getOrderItemByOrderId(order.getOrderId())) {
+                itemsInCart.add(orderItem.getOrderItem());
+            }
         }
-
         model.addAttribute("itemsInCart", itemsInCart);
         return "index";
     }
@@ -143,8 +152,13 @@ public class MappingController {
         return "cart";
     }
 
-    @PostMapping("/orderValidation")
-    public String orderValidation(OrderEntity orderEntity) {
+    @PostMapping("/cartValidation")
+    public String orderValidation(@RequestBody DTOCart variables, Model model) {
+        OrderEntity orderEntity = orderRepository.getOrderByOrderId(variables.getOrderId());
+
+        orderEntity.setOrderState(OrderStatus.A_PREPARER);
+        orderEntity.setDeliveryTime(LocalDateTime.now().withHour(12).withMinute(00));
+        orderRepository.updateOrder(orderEntity);
 
         return "cart";
     }

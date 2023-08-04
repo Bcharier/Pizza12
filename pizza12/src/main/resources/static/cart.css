@@ -22,3 +22,29 @@ h2 {
     width: 30%;
 }
 
+.button-cart-validation {
+    display: flex;
+    margin: 3rem auto;
+}
+
+.validation-modal {
+    display: none;
+    width: 30rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    background-color: #fff;
+    padding: 5rem;
+}
+
+.validation-close {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+}
+

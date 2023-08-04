@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +33,8 @@ public class OrderRepositoryImpl implements OrderRepository {
   private static class OrderRowMapper implements RowMapper<OrderEntity> {
     public OrderEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
 
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
       OrderEntity orderEntity = new OrderEntity();
       orderEntity.setOrderId(rs.getInt("orderId"));
       orderEntity.setTableNumber(rs.getInt("orderTableNum"));
@@ -42,7 +46,7 @@ public class OrderRepositoryImpl implements OrderRepository {
       if (Objects.isNull(rs.getTime("orderScheduledDeliveryTime"))) {
         orderEntity.setDeliveryTime(null);
       } else {
-        orderEntity.setDeliveryTime(rs.getTime("orderScheduledDeliveryTime").toLocalTime());
+        orderEntity.setDeliveryTime(rs.getTimestamp("orderScheduledDeliveryTime").toLocalDateTime());
       }
       orderEntity.setOrderState(OrderStatus.valueOf(rs.getString("orderStatus")));
 
@@ -78,9 +82,9 @@ public class OrderRepositoryImpl implements OrderRepository {
         preparedStatement.setInt(2, orderEntity.getTableNumber());
         preparedStatement.setInt(3, orderEntity.getAccount().getAccountId());
         if (Objects.isNull(orderEntity.getDeliveryTime())) {
-          preparedStatement.setTime(4, null);
+          preparedStatement.setString(4, null);
         } else {
-          preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
+          preparedStatement.setString(4, orderEntity.getDeliveryTime().toString());
         }
         preparedStatement.setString(5, orderEntity.getOrderState().name());
         preparedStatement.setInt(6, 0);
@@ -90,20 +94,21 @@ public class OrderRepositoryImpl implements OrderRepository {
 
   @Override
   public void updateOrder(OrderEntity orderEntity) {
-    String sql = "Update Orders SET orderId = ?, orderTableNum = ?, orderAccountId = ?, orderScheduleDeliveryTime = ?, orderStatus = ?, orderBillTotal = ?";
+    String sql = "Update Orders SET orderTableNum = ?, orderAccountId = ?, orderScheduledDeliveryTime = ?, orderStatus = ?, orderBillTotal = ? WHERE orderId = ?";
 
     jdbcTemplate.update(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {
-        preparedStatement.setInt(1, orderEntity.getOrderId());
-        preparedStatement.setInt(2, orderEntity.getTableNumber());
-        preparedStatement.setInt(3, orderEntity.getAccount().getAccountId());
+        preparedStatement.setInt(1, orderEntity.getTableNumber());
+        preparedStatement.setInt(2, orderEntity.getAccount().getAccountId());
         if (Objects.isNull(orderEntity.getDeliveryTime())) {
-          preparedStatement.setTime(4, null);
+          preparedStatement.setTime(3, null);
         } else {
-          preparedStatement.setTime(4, Time.valueOf(orderEntity.getDeliveryTime()));
+          preparedStatement.setString(3, orderEntity.getDeliveryTime().toString());
         }
-        preparedStatement.setString(5, orderEntity.getOrderState().name());
-        preparedStatement.setInt(6, 0);
+        preparedStatement.setString(4, orderEntity.getOrderState().name());
+        preparedStatement.setInt(5, 0);
+        preparedStatement.setInt(6, orderEntity.getOrderId());
+
       }
     });
   }
@@ -132,7 +137,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
   @Override
   public List<OrderEntity> getOrderByAccountIdAndByOrderState(int accountId, OrderStatus orderState) {
-    String sql = "SELECT * FROM orders o INNER JOIN Accounts a ON o.orderAccountId = a.accountId WHERE orderAccountId = ? AND orderStatus = ?";
+    String sql = "SELECT * FROM orders o INNER JOIN Accounts a ON o.orderAccountId = a.accountId INNER JOIN orderItems oI ON o.orderId = oi.orderId INNER JOIN products p ON oi.orderItemId = p.productId WHERE orderAccountId = ? AND orderStatus = ?";
 
     return jdbcTemplate.query(sql, new PreparedStatementSetter() {
       public void setValues(PreparedStatement preparedStatement) throws SQLException {

@@ -1,0 +1,6 @@
+<div th:fragment="cart-index" class="cart-index-container">
+	<th:block th:each="product, iStat : ${itemsInCart}">
+		<p data-th-text="${product}"></p>
+		<p>test</p>
+	</th:block>
+</div>

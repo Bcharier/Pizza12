@@ -10,5 +10,14 @@
                 </th:block>
             </ul>
         </th:block>
+        <button th:id="${order.orderId}" class="button button-cart-validation">
+            Valider la commande
+        </button>
 	</th:block>
+
+    <div class="validation-modal">
+        <img src="/pictos/icon_cross.png" alt="Fermer la modale" class="validation-close picto">
+        <h2 class="small-title">Votre commande a bien été validée</h2>
+        <p>Merci pour votre confiance ! </p>
+    </div>
 </div>
